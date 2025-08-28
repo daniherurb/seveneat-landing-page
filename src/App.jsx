@@ -36,10 +36,15 @@ function App() {
               </div>
           </div>
       }
-      <div className="flex flex-row self-center w-8/10 justify-between mt-12">
-          <div className="w-5/10">Transform Your Meal Planning with AI-Powered Intelligence</div>
-        <div className="w-fit">
-      <div className = "bg-gray-800 w-90 h-160 rounded-[40px] m-4 p-[20px]">
+      <div className="grid grid-cols-2 items-center max-w-7xl self-center p-5 mt-8">
+          <div className="flex flex-col w-fit gap-6 bg-gradient-to-r from-green-600 via-red-400 to-red-700 bg-clip-text">
+              <div className="text-6xl font-bold text-(--dark-green)">Transform Your Meal Planning with
+                  <div className = "text-transparent leading-none">AI-Powered Intelligence</div></div>
+              <div className="text-xl text-gray-500">Seveneat learns your eating habits and generates personalized weekly meal plans.
+                  Add meals through voice, photos, or simple prompts, then let our AI create perfect weekly calendars with automatic shopping lists.</div>
+          </div>
+        <div className="flex items-center justify-center">
+      <div className = "bg-gray-800 w-80 h-160 rounded-[40px] m-4 p-[20px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)]">
             <div className = "flex flex-col bg-white w-full h-full rounded-[20px]">
                 <div className = "flex bg-(--green) h-1/10 w-full rounded-t-[20px] items-end justify-between">
                     <p className = "m-3 text-lg text-(--white) font-bold">Today's plan</p>
@@ -62,9 +67,9 @@ function App() {
                     </div>
                     <div className="flex flex-col items-center bg-[repeating-linear-gradient(0deg,var(--grey)_0px,var(--grey)_2px,var(--white)_2px,var(--white)_40px)] h-full w-8/10">
                         <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-2">
-                            <p className="text-(--red) font-bold text-lg">Avocado toasts</p>
+                            <p className="text-(--red) font-bold text-md">Avocado toasts</p>
                             <div className="flex flex-row gap-2 items-center">
-                                <p className="text-(--dark-green) text-md">Healthiness:</p>
+                                <p className="text-(--dark-green) text-sm">Healthiness:</p>
                                 <div className="flex flex-row justify-between gap-1">
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
@@ -75,9 +80,9 @@ function App() {
                             </div>
                         </div>
                         <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-30">
-                            <p className="text-(--red) font-bold text-lg">Chicken with potatoes</p>
+                            <p className="text-(--red) font-bold text-md">Chicken with potatoes</p>
                             <div className="flex flex-row gap-2 items-center">
-                                <p className="text-(--dark-green) text-md">Healthiness:</p>
+                                <p className="text-(--dark-green) text-sm">Healthiness:</p>
                                 <div className="flex flex-row justify-between gap-1">
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
@@ -88,9 +93,9 @@ function App() {
                             </div>
                         </div>
                         <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-30">
-                            <p className="text-(--red) font-bold text-lg">Fruit salad with yogurt</p>
+                            <p className="text-(--red) font-bold text-md">Fruit salad with yogurt</p>
                             <div className="flex flex-row gap-2 items-center">
-                                <p className="text-(--dark-green) text-md">Healthiness:</p>
+                                <p className="text-(--dark-green) text-sm">Healthiness:</p>
                                 <div className="flex flex-row justify-between gap-1">
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
