@@ -5,8 +5,16 @@
     --light-green: #6dfc72;
     --red: #d64a33;
     --dark-red: #700101;
-    --dark-green: #273a2e;
+    --dark-green: #1e2b23;
     --white: #ffffff;
     --grey: #a6a5a5;
     --light-grey: #dedede;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100%;
 }
