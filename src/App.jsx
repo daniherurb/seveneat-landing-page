@@ -180,7 +180,8 @@ function App() {
                   </div>
               </div>
           </div>
-          <div className={"flex flex-col w-9/10 mt-10 h-fit items-center p-7 self-center rounded-2xl mb-4 bg-gradient-to-r from-green-500 to-red-500 max-w-330 backdrop-blur-md"}>
+          <div className={"flex flex-col p-1.5 h-fit w-9/10 rounded-2xl self-center items-center bg-gray-100 m-5 max-w-330 card"}>
+          <div className={"flex flex-col w-full h-fit items-center p-7 self-center rounded-2xl bg-gradient-to-r from-green-500 to-red-500 backdrop-blur-md"}>
               <div className="text-3xl font-bold md:text-4xl w-9/10 text-(--white) text-center">Take Meal Planning to the Next Level</div>
               <div className="mt-5 text-md md:text-lg w-9/10 text-white text-center">Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals.</div>
               <div className={"grid grid-cols-2 md:grid-cols-4 w-9/10 mt-10 max-w-300 gap-10 h-fit gap-x-0 md:gap-x-10"}>
@@ -203,13 +204,14 @@ function App() {
               </div>
               <div className={"flex flex-col h-fit mt-15"}>
                   <div className={"flex flex-row items-end"}>
-                      <div className="w-9/10 text-center text-5xl font-bold text-white drop-shadow-xl">$3.99</div><div className={"text-white"}>/mo</div>
+                      <div className="w-9/10 text-center text-5xl font-bold text-white drop-shadow-xl ">$3.99</div><div className={"text-white"}>/mo</div>
                   </div>
                   <div className={"flex flex-row items-center justify-center mt-2"}>
                       <div className="text-s text-white">$37.99/year</div>
                   </div>
               </div>
 
+          </div>
           </div>
       </div>
   )

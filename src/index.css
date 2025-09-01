@@ -18,3 +18,45 @@ html, body {
     width: 100%;
     min-height: 100%;
 }
+
+.card {
+    z-index: -2;
+    position: relative;
+    /* Your existing styles */
+    overflow: hidden; /* Important: prevents overflow */
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: -100%; /* Larger size to avoid gaps when rotating */
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background-image: conic-gradient(
+            from 0deg,
+            var(--dark-green),
+            var(--green),
+            var(--light-green),
+            var(--dark-green),
+            var(--green),
+            var(--light-green),
+            var(--dark-green),
+            var(--green),
+            var(--light-green),
+            var(--dark-green)
+    );
+    filter: blur();
+    opacity: 0.5;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
