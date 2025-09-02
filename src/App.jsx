@@ -1,11 +1,11 @@
 import './App.css'
 import { useState } from 'react'
 import logo from './assets/logo.png'
-import { MdModeNight, MdKeyboardVoice } from "react-icons/md";
+import { MdModeNight, MdKeyboardVoice, MdDesignServices, MdOutlineEmail } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCalendar, IoCartOutline, IoHomeOutline, IoBookOutline, IoSettingsOutline, IoCameraOutline} from "react-icons/io5";
 import { TbInputAi } from "react-icons/tb";
-import { FaBowlFood, FaRobot } from "react-icons/fa6";
+import { FaBowlFood, FaRobot, FaClipboardCheck } from "react-icons/fa6";
 import { FaShoppingCart, FaCheck } from "react-icons/fa";
 import { RiHealthBookFill } from "react-icons/ri";
 import { IoIosInfinite } from "react-icons/io";
@@ -18,7 +18,7 @@ function App() {
     const toggleMenu = () => setOpen(!open);
   return (
       <div className="flex flex-col justify-center w-full overflow-x-hidden">
-          <div className="fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full h-20 bg-white shadow-md">
+          <div className="fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full h-20 bg-white shadow-md z-10">
               <div className="flex flex-row h-full items-center m-2 gap-2">
                   <img src={logo} alt="logo" className="w-auto h-8/10 aspect-square"/>
                   <p className="text-2xl font-bold text-(--red)"> Seveneat</p>
@@ -129,24 +129,24 @@ function App() {
         </div>
 
       </div>
-          <div className="flex flex-col bg-(--dark-green) h-fit items-center text-center mt-10 pb-8">
+          <div className="flex flex-col bg-(--dark-green) h-fit items-center text-center mt-10 pb-8 -z-1">
               <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-white">Intelligent Meal Planning Made Simple</div>
               <div className="mt-5 text-md md:text-lg w-9/10 text-white">Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals.</div>
               <div className="grid md:grid-cols-2 h-fit gap-4 items-center mt-7 w-9/10 justify-between max-w-330">
                         <div className="h-full w-full flex flex-col items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4">
-                            <FaBowlFood className="text-(--red) text-5xl"></FaBowlFood >
+                            <FaBowlFood className="text-(--red) text-5xl drop-shadow-lg z-0"></FaBowlFood >
                             <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
                             <div className="text-(--dark-green) text-xl font-bold">Add Meals Your Way</div>
                             <div className="text-(--grey) text-md text-start">Add new meals to your collection using voice commands,
                                 photo recognition, or simple text prompts - whatever feels natural to you.</div>
                             <div className={"flex flex-col self-start text-start text-md ml-2 gap-2.5"}>
-                                <div className="flex flex-row items-start gap-2 text-gray-600"><MdKeyboardVoice className={"mt-1 min-w-5 min-h-5 text-(--red)"}></MdKeyboardVoice>Voice dictation</div>
-                                <div className="flex flex-row items-start gap-2 text-gray-600"><IoCameraOutline className={"mt-1 min-w-5 min-h-5 text-(--red)"}></IoCameraOutline>Photo meal detection</div>
-                                <div className="flex flex-row items-start gap-2 text-gray-600"><TbInputAi className={"mt-1 min-w-5 min-h-5 text-(--red)"}></TbInputAi>AI text prompts</div>
+                                <div className="flex flex-row items-start gap-2 text-gray-600"><MdKeyboardVoice className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></MdKeyboardVoice>Voice dictation</div>
+                                <div className="flex flex-row items-start gap-2 text-gray-600"><IoCameraOutline className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></IoCameraOutline>Photo meal detection</div>
+                                <div className="flex flex-row items-start gap-2 text-gray-600"><TbInputAi className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></TbInputAi>AI text prompts</div>
                             </div>
                         </div>
                   <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full">
-                      <FaRobot className="text-(--red) text-5xl"></FaRobot >
+                      <FaRobot className="text-(--red) text-5xl drop-shadow-lg z-0"></FaRobot >
                       <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
                       <div className="text-(--dark-green) text-xl font-bold">AI-Generated Weekly Plans</div>
                       <div className="text-(--grey) text-md text-start">Our intelligent algorithm analyzes your meal preferences, dietary restrictions, and eating patterns to create perfectly balanced weekly meal calendars.</div>
@@ -157,7 +157,7 @@ function App() {
                       </div>
                   </div>
                   <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full">
-                      <FaShoppingCart className="text-(--red) text-5xl"></FaShoppingCart >
+                      <FaShoppingCart className="text-(--red) text-5xl drop-shadow-lg z-0"></FaShoppingCart >
                       <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
                       <div className="text-(--dark-green) text-xl font-bold">Automatic Shopping Lists</div>
                       <div className="text-(--grey) text-md text-start">Once your weekly plan is ready, get a comprehensive shopping list with all ingredients organized by category for efficient grocery trips.</div>
@@ -168,7 +168,7 @@ function App() {
                       </div>
                   </div>
                   <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full">
-                      <RiHealthBookFill className="text-(--red) text-5xl"></RiHealthBookFill >
+                      <RiHealthBookFill className="text-(--red) text-5xl drop-shadow-lg z-0"></RiHealthBookFill >
                       <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
                       <div className="text-(--dark-green) text-xl font-bold">Nutrition Intelligence</div>
                       <div className="text-(--grey) text-md text-start">Track calories and protein intake effortlessly. Rate your meals for taste and health, and our AI will optimize future recommendations.</div>
@@ -179,40 +179,107 @@ function App() {
                       </div>
                   </div>
               </div>
-          </div>
-          <div className={"flex flex-col p-1.5 h-fit w-9/10 rounded-2xl self-center items-center bg-gray-100 m-5 max-w-330 card"}>
-          <div className={"flex flex-col w-full h-fit items-center p-7 self-center rounded-2xl bg-gradient-to-r from-green-500 to-red-500 backdrop-blur-md"}>
-              <div className="text-3xl font-bold md:text-4xl w-9/10 text-(--white) text-center">Take Meal Planning to the Next Level</div>
-              <div className="mt-5 text-md md:text-lg w-9/10 text-white text-center">Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals.</div>
-              <div className={"grid grid-cols-2 md:grid-cols-4 w-9/10 mt-10 max-w-300 gap-10 h-fit gap-x-0 md:gap-x-10"}>
-                  <div className={"flex flex-col h-full items-center gap-2"}>
-                      <IoIosInfinite className={"text-7xl md:text-8xl aspect-square text-white drop-shadow-md"}></IoIosInfinite>
-                      <div className={"text-md md:text-lg text-center text-white"}>Unlimited AI use</div>
-                  </div>
-                  <div className={"flex flex-col h-full items-center gap-2"}>
-                      <LuClipboardPlus  className={"text-7xl md:text-8xl aspect-square text-white drop-shadow-md"}></LuClipboardPlus >
-                      <div className={"text-md md:text-lg text-center text-white"}>Advanced planning</div>
-                  </div>
-                  <div className={"flex flex-col h-full items-center gap-2"}>
-                      <LuBrainCircuit className={"text-6xl md:text-8xl aspect-square text-white drop-shadow-md"}></LuBrainCircuit>
-                      <div className={"text-md md:text-lg text-center text-white"}>Better AI model</div>
-                  </div>
-                  <div className={"flex flex-col h-full items-center gap-2"}>
-                      <AiOutlineFieldTime className={"text-6xl md:text-8xl aspect-square text-white drop-shadow-md"}></AiOutlineFieldTime>
-                      <div className={"text-md md:text-lg text-center text-white"}>Early access to new features</div>
-                  </div>
-              </div>
-              <div className={"flex flex-col h-fit mt-15"}>
-                  <div className={"flex flex-row items-end"}>
-                      <div className="w-9/10 text-center text-5xl font-bold text-white drop-shadow-xl ">$3.99</div><div className={"text-white"}>/mo</div>
-                  </div>
-                  <div className={"flex flex-row items-center justify-center mt-2"}>
-                      <div className="text-s text-white">$37.99/year</div>
-                  </div>
-              </div>
+              <div className={"flex flex-col p-1.5 h-fit w-9/10 rounded-2xl self-center items-center bg-gray-100 m-5 max-w-330 card"}>
+                  <div className={"flex flex-col w-full h-fit items-center p-7 self-center rounded-2xl bg-gradient-to-r from-green-500 to-red-500 backdrop-blur-md"}>
+                      <div className="text-3xl font-bold md:text-4xl w-9/10 text-(--white) text-center">Take Meal Planning to the Next Level</div>
+                      <div className="mt-5 text-md md:text-lg w-9/10 text-white text-center">Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals.</div>
+                      <div className={"grid grid-cols-2 md:grid-cols-4 w-9/10 mt-10 max-w-300 gap-10 h-fit gap-x-0 md:gap-x-10"}>
+                          <div className={"flex flex-col h-full items-center gap-2"}>
+                              <IoIosInfinite className={"text-7xl md:text-8xl aspect-square text-white drop-shadow-md"}></IoIosInfinite>
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Unlimited AI use</div>
+                          </div>
+                          <div className={"flex flex-col h-full items-center gap-2"}>
+                              <LuClipboardPlus  className={"text-7xl md:text-8xl aspect-square text-white drop-shadow-md"}></LuClipboardPlus >
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Advanced planning</div>
+                          </div>
+                          <div className={"flex flex-col h-full items-center gap-2"}>
+                              <LuBrainCircuit className={"text-6xl md:text-8xl aspect-square text-white drop-shadow-md"}></LuBrainCircuit>
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Better AI model</div>
+                          </div>
+                          <div className={"flex flex-col h-full items-center gap-2"}>
+                              <AiOutlineFieldTime className={"text-6xl md:text-8xl aspect-square text-white drop-shadow-md"}></AiOutlineFieldTime>
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Early access to new features</div>
+                          </div>
+                      </div>
+                      <div className={"flex flex-col h-fit mt-10"}>
+                          <div className={"flex flex-row items-end"}>
+                              <div className="w-9/10 text-center text-5xl font-bold text-white drop-shadow-xl">$3.99</div><div className={"text-white"}>/mo</div>
+                          </div>
+                          <div className={"flex flex-row items-center justify-center mt-2"}>
+                              <div className="text-s text-white">$37.99/year</div>
+                          </div>
+                      </div>
 
+                  </div>
+              </div>
+              <div className={"flex flex-col justify-center self-center items-center gap-2"}>
+              <div className="flex flex-col mt-5 text-3xl font-bold md:text-4xl w-9/10 text-(--white) justify-center items-center gap-2"><MdDesignServices className={"mt-1 text-5xl text-(--red)"}></MdDesignServices>And even more new features are yet to come...</div>
+              <div className="mt-5 text-md md:text-lg w-9/10 text-white">We're constantly working on exciting new features to make your meal planning even better. Be the first to try them!</div>
+              <div className="grid md:grid-cols-[auto_auto_auto] mt-5 gap-8 w-fit place-items-center justify-between">
+                  <div className="flex flex-row w-fit gap-2 text-white items-center">
+                      <FaClipboardCheck className="text-xl text-(--red)" />Recipe recommendations
+                  </div>
+                  <div className="flex flex-row w-fit gap-2 text-white items-center">
+                      <FaClipboardCheck className="text-xl text-(--red)" />Meal prep scheduling
+                  </div>
+                  <div className="flex flex-row w-fit gap-2 text-white items-center">
+                      <FaClipboardCheck className="text-xl text-(--red)" />Social meal sharing
+                  </div>
+              </div>
+                  <button className="p-4 pl-7 pr-8 bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold mt-8 mb-4 text-xl ">Join waitlist now!</button>
+              </div>
           </div>
+          <div className="flex flex-col bg-(--white) h-fit items-center text-center pb-8">
+              <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-(--dark-green)">How Seveneat Works</div>
+              <div className="mt-5 text-md md:text-lg w-9/10 text-(--dark-green)">Three simple steps to transform your meal planning experience.</div>
+              <div className="grid md:grid-cols-3 w-9/10 mt-10 gap-15 md:gap-3">
+                  <div className={"flex flex-col items-center gap-5 h-auto"}>
+                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg"}>1</div>
+                      <div className={"text-(--dark-green) text-center text-2xl font-bold"}>Add Your Favorite Meals</div>
+                      <div className={"text-(--dark-green) text-center text-md w-8/10"}>Start by adding your go-to meals using voice, photos, or text. The more you add, the better our AI understands your preferences.</div>
+                  </div>
+                  <div className={"flex flex-col items-center gap-5 h-auto"}>
+                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg"}>2</div>
+                      <div className={"text-(--dark-green) text-center text-2xl font-bold"}>Rate & Customize</div>
+                      <div className={"text-(--dark-green) text-center text-md w-8/10"}>Rate meals for taste and healthiness. Set your dietary preferences and health goals for personalized recommendations.</div>
+                  </div>
+                  <div className={"flex flex-col items-center gap-5  h-auto"}>
+                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg"}>3</div>
+                      <div className={"text-(--dark-green) text-center text-2xl font-bold"}>Get Your Weekly Plan</div>
+                      <div className={"text-(--dark-green) text-center text-md w-8/10"}>Receive a perfectly balanced weekly meal calendar with automatic shopping lists. Modify as needed and enjoy stress-free meal planning.</div>
+                  </div>
+              </div>
           </div>
+          <div className="flex flex-col bg-(--red) h-fit items-center text-center mt-10 pb-8">
+              <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-white">Ready to Transform Your Meal Planning?</div>
+              <div className="mt-5 text-md md:text-lg w-9/10 text-white">Be the first to experience Seveneat's AI-powered meal planning. Join our exclusive waitlist and get early access when we launch!</div>
+              <div className={"flex flex-col md:flex-row gap-5 items-center mt-12"}>
+                  <input className={"w-60 md:w-80 h-14 md:h-18 bg-white rounded-md p-2"}></input>
+                  <button className="h-14 md:h-18 p-4 bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold text-md">Join waitlist now!</button>
+              </div>
+              <div className="mt-8 text-md md:text-lg w-9/10 text-white">Get notified as soon as Seveneat is ready.</div>
+              <div className={"flex flex-row text-white items-center text-sm gap-1 mt-1"}><MdOutlineEmail></MdOutlineEmail>Launch notification via email</div>
+          </div>
+          <div className="flex flex-col bg-(--dark-green) h-fit items-center">
+              <div className={"flex flex-col md:flex-row md:items-center gap-8 h-auto justify-between w-9/10 mt-14"}>
+                  <div className={"flex flex-col gap-2 self-star"}>
+                      <div className={"flex flex-row items-center gap-2 text-white font-bold text-2xl"}><img src={logo} alt="logo" className="w-10 h-8/10 aspect-square"/> Seveneat</div>
+                      <div className={"text-white text-md"}>Intelligent meal planning for healthier living</div>
+                  </div>
+                  <div className={"flex flex-col items-center gap-2"}>
+                      <div className={"text-white font-bold text-md"}>
+                          Links
+                      </div>
+                      <div className={"flex flex-row items-center gap-2 text-white"}>
+                          <a href={"https://seveneat.com/documents/privacyPolicy.html"} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                          <a href={"https://seveneat.com/documents/privacyPolicy.html"} target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+                          <a href={"https://seveneat.com/documents/privacyPolicy.html"} target="_blank" rel="noopener noreferrer">GitHub</a>
+                      </div>
+                  </div>
+              </div>
+              <div className={"text-gray-500 text-lg mt-10 mb-10 text-center"}>© 2025 Seveneat. All rights reserved.</div>
+          </div>
+
       </div>
   )
 }

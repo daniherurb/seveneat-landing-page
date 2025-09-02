@@ -2,7 +2,8 @@
 
 :root {
     --green: #4cb050;
-    --light-green: #6dfc72;
+    --light-green: #8cc98f;
+    --brat: #236926;
     --red: #d64a33;
     --dark-red: #700101;
     --dark-green: #1e2b23;
@@ -22,33 +23,35 @@ html, body {
 .card {
     z-index: -2;
     position: relative;
-    /* Your existing styles */
-    overflow: hidden; /* Important: prevents overflow */
+    overflow: hidden;
 }
 
 .card::before {
     content: "";
     position: absolute;
-    top: -100%; /* Larger size to avoid gaps when rotating */
+    top: -100%;
     left: -100%;
     width: 300%;
     height: 300%;
     background-image: conic-gradient(
             from 0deg,
-            var(--dark-green),
-            var(--green),
             var(--light-green),
-            var(--dark-green),
-            var(--green),
+            var(--brat),
             var(--light-green),
-            var(--dark-green),
-            var(--green),
+            var(--brat),
             var(--light-green),
-            var(--dark-green)
+            var(--brat),
+            var(--light-green)
     );
     filter: blur();
     opacity: 0.5;
     animation: spin 3s linear infinite;
+}
+
+@media (max-width: 305px) { /* a partir de md (tablet/desktop) */
+    .card::before {
+        animation: none;
+    }
 }
 
 @keyframes spin {
@@ -59,4 +62,18 @@ html, body {
         transform: rotate(360deg);
     }
 }
+
+@keyframes elevate {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
 
