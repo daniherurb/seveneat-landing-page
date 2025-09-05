@@ -1,7 +1,7 @@
 import './App.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import logo from './assets/logo.png'
-import { MdModeNight, MdKeyboardVoice, MdDesignServices, MdOutlineEmail } from "react-icons/md";
+import { MdKeyboardVoice, MdDesignServices, MdOutlineEmail } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCalendar, IoCartOutline, IoHomeOutline, IoBookOutline, IoSettingsOutline, IoCameraOutline} from "react-icons/io5";
 import { TbInputAi } from "react-icons/tb";
@@ -14,71 +14,138 @@ import { LuBrainCircuit, LuClipboardPlus } from "react-icons/lu";
 
 function App() {
     const [open, setOpen] = useState(false);
+    const [dark, setDark] = useState(false);
+    const [language, setLanguage] = useState(false);
+
+    const switchMode = () => {
+        setDark(!dark);
+    }
+
+    const switchLanguage = () => {
+        setLanguage(!language);
+    }
+
+    useEffect(() => {
+        const storedDark = localStorage.getItem("darkMode");
+        const storedLanguage = localStorage.getItem("language");
+
+        if (storedDark === "true") {
+            setDark(true);
+        }
+
+        if(storedLanguage === "true"){
+            setLanguage(true);
+        }
+
+    }, []);
+
+    useEffect(() => {
+        if (dark) {
+            localStorage.setItem("darkMode", "true");
+        } else {
+            localStorage.removeItem("darkMode");
+        }
+    }, [dark]);
+
+    useEffect(() => {
+        if (language) {
+            localStorage.setItem("language", "true");
+        } else {
+            localStorage.removeItem("language");
+        }
+    }, [language]);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(min-width: 765px)");
+
+        const handleChange = (e) => {
+            if (e.matches) {
+                setOpen(false);
+            }
+        };
+
+        handleChange(mediaQuery);
+        mediaQuery.addEventListener("change", handleChange);
+        return () => {
+            mediaQuery.removeEventListener("change", handleChange);
+        };
+    }, []);
 
     const toggleMenu = () => setOpen(!open);
+
   return (
-      <div className="flex flex-col justify-center w-full overflow-x-hidden">
-          <div className="fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full h-20 bg-white shadow-md z-10">
-              <div className="flex flex-row h-full items-center m-2 gap-2">
+      <div className={`${dark ? "dark" : ""} flex flex-col justify-center w-full overflow-x-hidden dark:bg-(--background-dark-green)`}>
+          <div className="fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full h-20 bg-white dark:bg-(--dark-green) shadow-md z-10">
+              <a href={"/"} className="flex flex-row h-full items-center m-2 gap-2">
                   <img src={logo} alt="logo" className="w-auto h-8/10 aspect-square"/>
-                  <p className="text-2xl font-bold text-(--red)"> Seveneat</p>
-              </div>
+                  <p className="text-2xl font-bold text-(--red)">Seveneat</p>
+              </a>
               <GiHamburgerMenu className={`text-2xl text-(--red) mt-1 mr-8 transform transition duration-400 ${open ? '-rotate-90' : ''} hover: cursor-pointer md:hidden`} onClick={toggleMenu}/>
               <div className="hidden md:flex flex-row gap-4 items-center mr-8">
-                  <button className="p-3 bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold">Join waitlist!</button>
-                  <button className="p-3 border-2 border-(--green) rounded-md text-(--green)">Learn more</button>
-                  <p className="text-(--red) text-md">ES</p>
-                  <MdModeNight className="text-(--red) text-md rotate-150 mt-0.5"></MdModeNight>
+                  <a href={"#waitlist"}><button className="p-3 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold button-animate dark:bg-(--green) dark:border-(--green)">{language ? "Unirse a la lista de espera" : "Join waitlist"}</button></a>
+                  <a href={"#learn-more"}><button className="p-3 border-2 border-(--red) rounded-md text-(--red) button-animate dark:border-(--green) dark:text-(--green)">{language ? "Conocer más" : "Learn more"}</button></a>
+                  <p className="text-(--red) text-md dark:text-(--green) language font-bold" onClick={switchLanguage}>{language ? "EN" : "ES"}</p>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                      <input className="sr-only peer" type="checkbox" checked={dark} onClick={switchMode}/>
+                      <div
+                          className="w-20 h-10 rounded-full bg-gradient-to-r from-(--red) to-(--dark-red) peer-checked:from-(--background-dark-green) peer-checked:to-(--green) transition-all duration-500 after:content-['☀️'] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-8 after:w-8 after:flex after:items-center after:justify-center after:transition-all after:duration-500 peer-checked:after:translate-x-10 peer-checked:after:content-['🌙'] after:shadow-md after:text-lg"
+                      ></div>
+                  </label>
               </div>
-      </div>
-      {open &&
-          <div className = "fixed flex flex-col items-center p-3 right-2 top-21 bg-white rounded-md mr-3 mt-3 gap-2 shadow-lg md:hidden">
-              <button className="p-3 bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold">Join waitlist now!</button>
-              <button className="p-3 bg-(--white) border-2 border-(--green) rounded-md text-(--green) font-bold w-full">Learn more</button>
-              <div className="flex flex-row align-center justify-around w-9/10">
-                  <MdModeNight className="text-xl text-(--red) rotate-150 mt-1.5"></MdModeNight>
-                  <p className="text-xl text-(--red)">ES</p>
+        </div>
+        {open &&
+          <div className = "min-w-50 fixed flex flex-col items-center p-3 right-2 top-21 bg-white rounded-md mr-3 mt-3 gap-2 shadow-lg md:hidden z-13 dark:bg-(--dark-green) dark:border-(--green) dark:border-3">
+              <a href={"#waitlist"} className={"w-full"}><button className="w-full p-3 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold button-animate dark:bg-(--green) dark:border-(--green)">{language ? "Unirse a la lista de espera" : "Join waitlist"}</button></a>
+              <a href={"#learn-more"} className={"w-full"}><button className="w-full p-3 bg-(--white) border-2 border-(--red) rounded-md text-(--red) font-bold w-full button-animate dark:bg-(--dark-green) dark:border-(--green) dark:text-(--green)">{language ? "Conocer más" : "Learn more"}</button></a>
+              <div className="flex flex-row align-center justify-between w-9/10 items-center mt-2">
+                  <label className="relative inline-flex items-center cursor-pointer">
+                      <input className="sr-only peer" type="checkbox" checked={dark} onClick={switchMode}/>
+                      <div
+                          className="w-20 h-10 rounded-full bg-gradient-to-r from-(--red) to-(--dark-red) peer-checked:from-(--background-dark-green) peer-checked:to-(--green) transition-all duration-500 after:content-['☀️'] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-8 after:w-8 after:flex after:items-center after:justify-center after:transition-all after:duration-500 peer-checked:after:translate-x-10 peer-checked:after:content-['🌙'] after:shadow-md after:text-lg"
+                      ></div>
+                  </label>
+                  <p className="text-(--red) text-md dark:text-(--green) language font-bold" onClick={switchLanguage}>{language ? "EN" : "ES"}</p>
               </div>
           </div>
-      }
-      <div className="grid md:grid-cols-2 items-center max-w-7xl self-center p-5 mt-27 gap-6">
+        }
+        <div className="grid md:grid-cols-2 items-center max-w-7xl self-center p-5 pt-27 gap-6">
           <div className="flex flex-col w-fit gap-6 bg-gradient-to-r from-green-600 via-red-400 to-red-700 bg-clip-text">
-              <div className="text-5xl md:text-6xl font-bold text-(--dark-green) text-center md:text-start h-fit w-fit">Transform Your Meal Planning with
-                  <div className = "text-transparent leading-none">AI-Powered Intelligence</div></div>
-              <div className="text-lg md:text-xl text-gray-500 text-center md:text-start">Seveneat learns your eating habits and generates personalized weekly meal plans.
-                  Add meals through voice, photos, or simple prompts, then let our AI create perfect weekly calendars with automatic shopping lists.</div>
-              <div className="flex flex-row gap-3 justify-center md:justify-start">
-                  <button className="p-4 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold text-l">Join waitlist now!</button>
-                  <button className="p-4 border-2 border-(--red) rounded-md text-(--red) text-l items-center md:justify-items-start">Learn more</button>
+              <div className="text-5xl md:text-6xl font-bold text-(--dark-green) text-center md:text-start h-fit w-fit dark:text-white">{language ? "Transforma tu Planificación de Comidas con" : "Transform Your Meal Planning with"}
+                  <div className = "text-transparent leading-none">{language? "Inteligencia Artificial" :"AI-Powered Intelligence"}</div></div>
+              <div className="text-lg md:text-xl text-gray-500 text-center md:text-start fadeInFromUp md:fadeInFromLeft dark:text-white">
+                  {language ? "Seveneat aprende tus hábitos alimentarios y genera planes semanales de comidas personalizados. Añade comidas mediante voz, fotos o comandos simples, y deja que nuestra IA cree calendarios semanales perfectos con listas de compra automáticas." : "Seveneat learns your eating habits and generates personalized weekly meal plans. Add meals through voice, photos, or simple prompts, then let our AI create perfect weekly calendars with automatic shopping lists."}</div>
+              <div className="flex flex-row gap-3 justify-center md:justify-start fadeInFromUp md:fadeInFromLeft">
+                  <a href={"#waitlist"}><button className="p-4 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold text-lg button-animate">{language ? "Unirse a la lista de espera" : "Join waitlist now!"}</button></a>
+                  <a href={"#learn-more"}><button className="p-4 border-2 border-(--red) rounded-md text-(--red) text-lg items-center md:justify-items-start button-animate">{language ? "Conocer más" : "Learn more"}</button></a>
               </div>
           </div>
-        <div className="flex items-center justify-center">
-      <div className = "bg-gray-800 w-80 h-160 rounded-[40px] m-4 p-[20px] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.4)]">
-            <div className = "flex flex-col bg-white w-full h-full rounded-[20px]">
+        <div className="flex items-center justify-center fadeInFromDown md:fadeInFromRight">
+        <div className = "bg-gray-800 w-80 h-160 rounded-[40px] m-4 p-[20px] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.4)]">
+            <div className = "flex flex-col bg-white w-full h-full rounded-[20px] dark:bg-(--app-background-dark-mode)">
                 <div className = "flex bg-(--green) h-1/10 w-full rounded-t-[20px] items-end justify-between">
-                    <p className = "m-3 text-lg text-(--white) font-bold">Today's plan</p>
-                    <div className = "m-2.5 bg-(--red) p-2 text-white font-bold rounded-xl text-xs">Weekly</div>
+                    <p className = "m-3 text-lg text-(--white) font-bold">{language? "Plan de hoy" : "Today's plan"}</p>
+                    <div className = "m-2.5 bg-(--red) p-2 text-white font-bold rounded-xl text-xs">{language? "Semanal" : "Weekly"}</div>
                 </div>
                 <div className="flex flex-row w-full h-8/10">
-                    <div className="flex flex-col w-2/10 gap-[16px] align-middle items-center mt-7">
-                        <p>9:00</p>
-                        <p>10:00</p>
-                        <p>11:00</p>
-                        <p>12:00</p>
-                        <p>13:00</p>
-                        <p>14:00</p>
-                        <p>15:00</p>
-                        <p>16:00</p>
-                        <p>17:00</p>
-                        <p>18:00</p>
-                        <p>19:00</p>
-                        <p>20:00</p>
+                    <div className="flex flex-col w-2/10 gap-[16px] align-middle items-center mt-7 dark:text-(--light-grey)">
+                        <p>{language ? "9:00" : "9 AM"}</p>
+                        <p>{language ? "10:00" : "10 AM"}</p>
+                        <p>{language ? "11:00" : "11 AM"}</p>
+                        <p>{language ? "12:00" : "12 AM"}</p>
+                        <p>{language ? "13:00" : "1 PM"}</p>
+                        <p>{language ? "14:00" : "2 PM"}</p>
+                        <p>{language ? "15:00" : "3 PM"}</p>
+                        <p>{language ? "16:00" : "4 PM"}</p>
+                        <p>{language ? "17:00" : "5 PM"}</p>
+                        <p>{language ? "18:00" : "6 PM"}</p>
+                        <p>{language ? "19:00" : "7 PM"}</p>
+                        <p>{language ? "20:00" : "8 PM"}</p>
                     </div>
-                    <div className="flex flex-col items-center bg-[repeating-linear-gradient(0deg,var(--grey)_0px,var(--grey)_2px,var(--white)_2px,var(--white)_40px)] h-full w-8/10">
+                    <div className="flex flex-col items-center bg-[repeating-linear-gradient(0deg,var(--grey)_0px,var(--grey)_2px,var(--white)_2px,var(--white)_40px)] h-full w-8/10 dark:bg-[repeating-linear-gradient(0deg,var(--grey)_0px,var(--grey)_2px,var(--app-background-dark-mode)_2px,var(--app-background-dark-mode)_40px)]">
                         <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-2">
-                            <p className="text-(--red) font-bold text-md">Avocado toasts</p>
+                            <p className="text-(--red) font-bold text-md">{language? "Tostadas de aguacate" : "Avocado toasts"}</p>
                             <div className="flex flex-row gap-2 items-center">
-                                <p className="text-(--dark-green) text-sm">Healthiness:</p>
+                                <p className="text-(--dark-green) text-sm">{language? "Salubridad:" : "Healthiness:"}</p>
                                 <div className="flex flex-row justify-between gap-1">
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
@@ -89,9 +156,9 @@ function App() {
                             </div>
                         </div>
                         <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-30">
-                            <p className="text-(--red) font-bold text-md">Chicken with potatoes</p>
+                            <p className="text-(--red) font-bold text-md">{language? "Pollo con patatas" : "Chicken with potatoes"}</p>
                             <div className="flex flex-row gap-2 items-center">
-                                <p className="text-(--dark-green) text-sm">Healthiness:</p>
+                                <p className="text-(--dark-green) text-sm">{language? "Salubridad:" : "Healthiness:"}</p>
                                 <div className="flex flex-row justify-between gap-1">
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
@@ -102,21 +169,21 @@ function App() {
                             </div>
                         </div>
                         <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-30">
-                            <p className="text-(--red) font-bold text-md">Fruit salad with yogurt</p>
+                            <p className="text-(--red) font-bold text-md">{language? "Tortitas de avena" : "Otmeal pancakes"}</p>
                             <div className="flex flex-row gap-2 items-center">
-                                <p className="text-(--dark-green) text-sm">Healthiness:</p>
+                                <p className="text-(--dark-green) text-sm">{language? "Salubridad:" : "Healthiness:"}</p>
                                 <div className="flex flex-row justify-between gap-1">
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
                                     <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                                    <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
+                                    <p className="mt-0.5 w-3 h-3 bg-(--grey) rounded-4xl"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className = "flex flex-row bg-(--red) h-1/10 w-full rounded-b-[20px] items-center justify-around text-2xl text-white">
+                <div className = "flex flex-row bg-(--red) h-1/10 w-full rounded-b-[20px] items-center justify-around text-2xl text-white dark:text-(--dark-green)">
                     <IoCalendar/>
                     <IoCartOutline/>
                     <IoHomeOutline/>
@@ -129,157 +196,167 @@ function App() {
         </div>
 
       </div>
-          <div className="flex flex-col bg-(--dark-green) h-fit items-center text-center mt-10 pb-8 -z-1">
-              <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-white">Intelligent Meal Planning Made Simple</div>
-              <div className="mt-5 text-md md:text-lg w-9/10 text-white">Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals.</div>
+          <div className="flex flex-col bg-(--background-dark-green) h-fit items-center text-center mt-10 pb-8 dark:bg-(--dark-green)">
+
+
+              <div id="learn-more"
+                   className="scroll-mt-40 mt-13 text-3xl font-bold md:text-4xl w-9/10 text-white">{language? "Planificación Inteligente de Comidas Simplificada" : "Intelligent Meal Planning Made Simple"}
+              </div>
+              <div className="mt-5 text-md md:text-lg w-9/10 text-white">{language? "Descubre cómo Seveneat revoluciona la forma en que planificas, compras y disfrutas tus comidas" : "Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals"}
+              </div>
               <div className="grid md:grid-cols-2 h-fit gap-4 items-center mt-7 w-9/10 justify-between max-w-330">
-                        <div className="h-full w-full flex flex-col items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4">
-                            <FaBowlFood className="text-(--red) text-5xl drop-shadow-lg z-0"></FaBowlFood >
+                  <div
+                      className="h-full w-full flex flex-col items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 dark:bg-(--background-dark-green) dark:border-(--background-dark-green)">
+                      <FaBowlFood className="text-(--red) text-5xl drop-shadow-lg z-0"></FaBowlFood >
                             <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
-                            <div className="text-(--dark-green) text-xl font-bold">Add Meals Your Way</div>
-                            <div className="text-(--grey) text-md text-start">Add new meals to your collection using voice commands,
-                                photo recognition, or simple text prompts - whatever feels natural to you.</div>
+                            <div className="text-(--dark-green) text-xl font-bold dark:text-white">{language ? "Añade Comidas a tu Manera" : "Add Meals Your Way"}</div>
+                            <div className="text-(--grey) text-md text-start">{language ? "Añade nuevas comidas a tu colección usando comandos de voz, reconocimiento de fotos o comandos de texto simples - lo que te resulte más natural." : "Add new meals to your collection using voice commands, photo recognition, or simple text prompts - whatever feels natural to you."}</div>
                             <div className={"flex flex-col self-start text-start text-md ml-2 gap-2.5"}>
-                                <div className="flex flex-row items-start gap-2 text-gray-600"><MdKeyboardVoice className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></MdKeyboardVoice>Voice dictation</div>
-                                <div className="flex flex-row items-start gap-2 text-gray-600"><IoCameraOutline className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></IoCameraOutline>Photo meal detection</div>
-                                <div className="flex flex-row items-start gap-2 text-gray-600"><TbInputAi className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></TbInputAi>AI text prompts</div>
+                                <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><MdKeyboardVoice className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></MdKeyboardVoice>{language? "Dictado por voz" : "Voice dictation"}</div>
+                                <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><IoCameraOutline className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></IoCameraOutline>{language? "Detección de comidas por foto" : "Photo meal detection"}</div>
+                                <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><TbInputAi className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}></TbInputAi>{language? "Comandos de texto con IA" : "AI text prompts"}</div>
                             </div>
                         </div>
-                  <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full">
+                  <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full dark:bg-(--background-dark-green) dark:border-(--background-dark-green)">
                       <FaRobot className="text-(--red) text-5xl drop-shadow-lg z-0"></FaRobot >
                       <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
-                      <div className="text-(--dark-green) text-xl font-bold">AI-Generated Weekly Plans</div>
-                      <div className="text-(--grey) text-md text-start">Our intelligent algorithm analyzes your meal preferences, dietary restrictions, and eating patterns to create perfectly balanced weekly meal calendars.</div>
+                      <div className="text-(--dark-green) text-xl font-bold dark:text-white">{language? "Planes Semanales Generados por IA" : "AI-Generated Weekly Plans"}</div>
+                      <div className="text-(--grey) text-md text-start">{language ? "Nuestro algoritmo inteligente analiza tus preferencias alimentarias, restricciones dietéticas y patrones de alimentación para crear calendarios semanales de comidas perfectamente equilibrados." : "Our intelligent algorithm analyzes your meal preferences, dietary restrictions, and eating patterns to create perfectly balanced weekly meal calendars."}</div>
                       <div className={"flex flex-col self-start text-start text-md ml-2 gap-2.5"}>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Learns your taste preferences</div>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Considers your health goals</div>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Balances nutrition automatically</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language? "Aprende tus preferencias de sabor" : "Learns your taste preferences"}</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language? "Considera tus objetivos de salud" : "Considers your health goals"}</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language? "Equilibra la nutrición automáticamente" : "Balances nutrition automatically"}</div>
                       </div>
                   </div>
-                  <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full">
+                  <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full dark:bg-(--background-dark-green) dark:border-(--background-dark-green)">
                       <FaShoppingCart className="text-(--red) text-5xl drop-shadow-lg z-0"></FaShoppingCart >
                       <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
-                      <div className="text-(--dark-green) text-xl font-bold">Automatic Shopping Lists</div>
-                      <div className="text-(--grey) text-md text-start">Once your weekly plan is ready, get a comprehensive shopping list with all ingredients organized by category for efficient grocery trips.</div>
+                      <div className="text-(--dark-green) text-xl font-bold dark:text-white">{language? "Listas de Compra Automáticas" : "Automatic Shopping Lists"}</div>
+                      <div className="text-(--grey) text-md text-start">{language ? "Una vez que tu plan semanal esté listo, obtén una lista de compra completa con todos los ingredientes organizados por categoría para viajes eficientes al supermercado." : "Once your weekly plan is ready, get a comprehensive shopping list with all ingredients organized by category for efficient grocery trips."}</div>
                       <div className={"flex flex-col self-start text-start text-md ml-2 gap-2.5"}>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Ingredient consolidation</div>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Category organization</div>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Quantity optimization</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language ? "Consolidación de ingredientes" : "Ingredient consolidation"}</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language ? "Organización por categorías" : "Category organization"}</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language ? "Optimización de cantidades" : "Quantity optimization"}</div>
                       </div>
                   </div>
-                  <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full">
+                  <div className="flex flex-col w-full items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 h-full dark:bg-(--background-dark-green) dark:border-(--background-dark-green)">
                       <RiHealthBookFill className="text-(--red) text-5xl drop-shadow-lg z-0"></RiHealthBookFill >
                       <div className="bg-gray-100 w-full h-[2px] rounded-4xl"/>
-                      <div className="text-(--dark-green) text-xl font-bold">Nutrition Intelligence</div>
-                      <div className="text-(--grey) text-md text-start">Track calories and protein intake effortlessly. Rate your meals for taste and health, and our AI will optimize future recommendations.</div>
+                      <div className="text-(--dark-green) text-xl font-bold dark:text-white">{language ? "Inteligencia Nutricional" : "Nutrition Intelligence"}</div>
+                      <div className="text-(--grey) text-md text-start">{language ? "Rastrea calorías e ingesta de proteínas sin esfuerzo. Califica tus comidas por sabor y salud, y nuestra IA optimizará las recomendaciones futuras." : "Track calories and protein intake effortlessly. Rate your meals for taste and health, and our AI will optimize future recommendations."}</div>
                       <div className={"flex flex-col self-start text-start text-md ml-2 gap-2.5"}>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Daily calorie tracking</div>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Protein intake monitoring</div>
-                          <div className="flex flex-row items-start gap-2 text-gray-600"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>Personalized health scoring</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language ? "Seguimiento diario de calorías" : "Daily calorie tracking"}</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language ? "Monitoreo de ingesta de proteínas" : "Protein intake monitoring"}</div>
+                          <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white"><FaCheck className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}></FaCheck>{language ? "Puntuación de salud personalizada" : "Personalized health scoring"}</div>
                       </div>
                   </div>
               </div>
               <div className={"flex flex-col p-1.5 h-fit w-9/10 rounded-2xl self-center items-center bg-gray-100 m-5 max-w-330 card"}>
                   <div className={"flex flex-col w-full h-fit items-center p-7 self-center rounded-2xl bg-gradient-to-r from-green-500 to-red-500 backdrop-blur-md"}>
-                      <div className="text-3xl font-bold md:text-4xl w-9/10 text-(--white) text-center">Take Meal Planning to the Next Level</div>
-                      <div className="mt-5 text-md md:text-lg w-9/10 text-white text-center">Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals.</div>
+                      <div className="text-3xl font-bold md:text-4xl w-9/10 text-(--white) text-center">{language ? "Lleva la Planificación de Comidas al siguiente nivel" : "Take Meal Planning to the Next Level"}</div>
+                      <div className="mt-5 text-md md:text-lg w-9/10 text-white text-center">{language ? "Desbloquea todo el potencial de Seveneat con capacidades avanzadas de IA y funciones exclusivas." : "Unlock the full potential of Seveneat with advanced AI capabilities and exclusive features."}</div>
                       <div className={"grid grid-cols-2 md:grid-cols-4 w-9/10 mt-10 max-w-300 gap-10 h-fit gap-x-0 md:gap-x-10"}>
                           <div className={"flex flex-col h-full items-center gap-2"}>
                               <IoIosInfinite className={"text-7xl md:text-8xl aspect-square text-white drop-shadow-md"}></IoIosInfinite>
-                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Unlimited AI use</div>
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>{language ? "Uso ilimitado de IA" : "Unlimited AI use"}</div>
                           </div>
                           <div className={"flex flex-col h-full items-center gap-2"}>
                               <LuClipboardPlus  className={"text-7xl md:text-8xl aspect-square text-white drop-shadow-md"}></LuClipboardPlus >
-                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Advanced planning</div>
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>{language ? "Planificación avanzada" : "Advanced planning"}</div>
                           </div>
                           <div className={"flex flex-col h-full items-center gap-2"}>
                               <LuBrainCircuit className={"text-6xl md:text-8xl aspect-square text-white drop-shadow-md"}></LuBrainCircuit>
-                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Better AI model</div>
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>{language ? "Mejor modelo de IA" : "Better AI model"}</div>
                           </div>
                           <div className={"flex flex-col h-full items-center gap-2"}>
                               <AiOutlineFieldTime className={"text-6xl md:text-8xl aspect-square text-white drop-shadow-md"}></AiOutlineFieldTime>
-                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>Early access to new features</div>
+                              <div className={"text-md md:text-lg text-center text-white drop-shadow-xl"}>{language ? "Acceso temprano a nuevas funciones" : "Early access to new features"}</div>
                           </div>
                       </div>
                       <div className={"flex flex-col h-fit mt-10"}>
                           <div className={"flex flex-row items-end"}>
-                              <div className="w-9/10 text-center text-5xl font-bold text-white drop-shadow-xl">$3.99</div><div className={"text-white"}>/mo</div>
+                              <div className="w-9/10 text-center text-5xl font-bold text-white drop-shadow-xl">$3.99</div><div className={"text-white"}>{language ? "/mes" : "/mo"}</div>
                           </div>
                           <div className={"flex flex-row items-center justify-center mt-2"}>
-                              <div className="text-s text-white">$37.99/year</div>
+                              <div className="text-s text-white">{language ? "$37.99/año" : "$37.99/year"}</div>
                           </div>
                       </div>
 
                   </div>
+
               </div>
               <div className={"flex flex-col justify-center self-center items-center gap-2"}>
-              <div className="flex flex-col mt-5 text-3xl font-bold md:text-4xl w-9/10 text-(--white) justify-center items-center gap-2"><MdDesignServices className={"mt-1 text-5xl text-(--red)"}></MdDesignServices>And even more new features are yet to come...</div>
-              <div className="mt-5 text-md md:text-lg w-9/10 text-white">We're constantly working on exciting new features to make your meal planning even better. Be the first to try them!</div>
-              <div className="grid md:grid-cols-[auto_auto_auto] mt-5 gap-8 w-fit place-items-center justify-between">
+              <div className="flex flex-col mt-5 text-3xl font-bold md:text-4xl w-9/10 text-(--white) justify-center items-center gap-2"><MdDesignServices className={"mt-1 text-5xl text-(--red)"}></MdDesignServices>{language ? "Y muchas mas funciones estan aún por llegar..." : "And even more new features are yet to come..."}</div>
+              <div className="mt-5 text-md md:text-lg w-9/10 text-white">{language ? "Trabajamos constantemente en nuevas funciones emocionantes para hacer tu planificación de comidas aún mejor. ¡Sé el primero en probarlas!" : "We're constantly working on exciting new features to make your meal planning even better. Be the first to try them!"}</div>
+              <div className="grid md:grid-cols-[auto_auto_auto] mt-5 mb-3 gap-8 w-fit place-items-center justify-between">
                   <div className="flex flex-row w-fit gap-2 text-white items-center">
-                      <FaClipboardCheck className="text-xl text-(--red)" />Recipe recommendations
+                      <FaClipboardCheck className="text-xl text-(--red)"/>{language ? "Recomendaciones de recetas" : "Recipe recommendations"}
                   </div>
                   <div className="flex flex-row w-fit gap-2 text-white items-center">
-                      <FaClipboardCheck className="text-xl text-(--red)" />Meal prep scheduling
+                      <FaClipboardCheck className="text-xl text-(--red)"/>{language ? "Programación de preparación de comidas" : "Meal prep scheduling"}
                   </div>
                   <div className="flex flex-row w-fit gap-2 text-white items-center">
-                      <FaClipboardCheck className="text-xl text-(--red)" />Social meal sharing
+                      <FaClipboardCheck className="text-xl text-(--red)"/>{language ? "Compartir comidas socialmente" : "Social meal sharing"}
                   </div>
               </div>
-                  <button className="p-4 pl-7 pr-8 bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold mt-8 mb-4 text-xl ">Join waitlist now!</button>
               </div>
           </div>
-          <div className="flex flex-col bg-(--white) h-fit items-center text-center pb-8">
-              <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-(--dark-green)">How Seveneat Works</div>
-              <div className="mt-5 text-md md:text-lg w-9/10 text-(--dark-green)">Three simple steps to transform your meal planning experience.</div>
+          <div id={"learn-more"} className="flex flex-col h-fit items-center text-center pb-14">
+              <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-(--dark-green) dark:text-white">{language ? "Como funciona Seveneat" : "How Seveneat Works"}</div>
+              <div className="mt-5 text-md md:text-lg w-9/10 text-(--dark-green) dark:text-white">{language ? "Tres pasos simples para transformar tu experiencia de planificación de comidas" : "Three simple steps to transform your meal planning experience."}</div>
               <div className="grid md:grid-cols-3 w-9/10 mt-10 gap-15 md:gap-3">
                   <div className={"flex flex-col items-center gap-5 h-auto"}>
-                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg"}>1</div>
-                      <div className={"text-(--dark-green) text-center text-2xl font-bold"}>Add Your Favorite Meals</div>
-                      <div className={"text-(--dark-green) text-center text-md w-8/10"}>Start by adding your go-to meals using voice, photos, or text. The more you add, the better our AI understands your preferences.</div>
+                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg dark:text-white"}>1</div>
+                      <div className={"text-(--dark-green) text-center text-2xl font-bold dark:text-white"}>{language ? "Añade tus Comidas Favoritas" : "Add Your Favorite Meals"}</div>
+                      <div className={"text-(--dark-green) text-center text-md w-8/10 dark:text-white"}>{language ? "Comienza añadiendo tus comidas favoritas usando voz, fotos o texto. Mientras más añadas, mejor entenderá nuestra IA tus preferencias." : "Start by adding your go-to meals using voice, photos, or text. The more you add, the better our AI understands your preferences."}</div>
                   </div>
                   <div className={"flex flex-col items-center gap-5 h-auto"}>
-                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg"}>2</div>
-                      <div className={"text-(--dark-green) text-center text-2xl font-bold"}>Rate & Customize</div>
-                      <div className={"text-(--dark-green) text-center text-md w-8/10"}>Rate meals for taste and healthiness. Set your dietary preferences and health goals for personalized recommendations.</div>
+                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg dark:text-white"}>2</div>
+                      <div className={"text-(--dark-green) text-center text-2xl font-bold dark:text-white"}>{language ? "Califica y Personaliza" : "Rate & Customize"}</div>
+                      <div className={"text-(--dark-green) text-center text-md w-8/10 dark:text-white"}>{language ? "Califica las comidas por sabor y saludabilidad. Establece tus preferencias dietéticas y objetivos de salud para recomendaciones personalizadas." : "Rate meals for taste and healthiness. Set your dietary preferences and health goals for personalized recommendations."}</div>
                   </div>
-                  <div className={"flex flex-col items-center gap-5  h-auto"}>
-                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg"}>3</div>
-                      <div className={"text-(--dark-green) text-center text-2xl font-bold"}>Get Your Weekly Plan</div>
-                      <div className={"text-(--dark-green) text-center text-md w-8/10"}>Receive a perfectly balanced weekly meal calendar with automatic shopping lists. Modify as needed and enjoy stress-free meal planning.</div>
+                  <div className={"flex flex-col items-center gap-5 h-auto"}>
+                      <div className={"bg-(--green) w-fit aspect-square rounded-full text-2xl p-4 font-bold text-white drop-shadow-lg dark:text-white"}>3</div>
+                      <div className={"text-(--dark-green) text-center text-2xl font-bold dark:text-white"}>{language ? "Obtén tu plan semanal" : "Get Your Weekly Plan"}</div>
+                      <div className={"text-(--dark-green) text-center text-md w-8/10 dark:text-white"}>{language ? "Recibe un calendario semanal de comidas perfectamente equilibrado con listas de compra automáticas. Modifica según necesites y disfruta de una planificación de comidas sin estrés." : "Receive a perfectly balanced weekly meal calendar with automatic shopping lists. Modify as needed and enjoy stress-free meal planning."}</div>
                   </div>
               </div>
           </div>
-          <div className="flex flex-col bg-(--red) h-fit items-center text-center mt-10 pb-8">
-              <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-white">Ready to Transform Your Meal Planning?</div>
-              <div className="mt-5 text-md md:text-lg w-9/10 text-white">Be the first to experience Seveneat's AI-powered meal planning. Join our exclusive waitlist and get early access when we launch!</div>
-              <div className={"flex flex-col md:flex-row gap-5 items-center mt-12"}>
-                  <input className={"w-60 md:w-80 h-14 md:h-18 bg-white rounded-md p-2"}></input>
-                  <button className="h-14 md:h-18 p-4 bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold text-md">Join waitlist now!</button>
-              </div>
-              <div className="mt-8 text-md md:text-lg w-9/10 text-white">Get notified as soon as Seveneat is ready.</div>
-              <div className={"flex flex-row text-white items-center text-sm gap-1 mt-1"}><MdOutlineEmail></MdOutlineEmail>Launch notification via email</div>
+          <div className="flex flex-col bg-(--red) h-fit items-center text-center pt-15 pb-8 pt-13">
+              <div id="waitlist" className="scroll-mt-40 text-3xl font-bold md:text-4xl w-9/10 text-white">{language ? "¿Preparado para Transformar tu Planificación de Comidas?" : "Ready to Transform Your Meal Planning?"}</div>
+              <div className="mt-5 text-md md:text-lg w-9/10 text-white">{language ? "Sé el primero en experimentar la planificación de comidas con IA de Seveneat. ¡Únete a nuestra lista de espera exclusiva y obtén acceso temprano cuando lancemos!" : "Be the first to experience Seveneat's AI-powered meal planning. Join our exclusive waitlist and get early access when we launch!"}</div>
+              <form className={"flex flex-col md:flex-row gap-5 items-center mt-12"} action="/waitlist" method="post" aria-labelledby="waitlist-heading">
+                  <input type="hidden" name="_csrf_token"
+                         value="PzsANDgEcQh5WVdjegEUNDNOBnF0CBo-gqGVArGKT562LnnfzxSFGMYj"/>
+                  <input type="hidden" name="locale" value="en"/>
+                  <input type="email" id="email" name="email" placeholder={language ? "Correo electrónico" : "Email adress"} required aria-describedby="email-description" className={"w-60 md:w-80 h-8 md:h-14 bg-white rounded-md p-2 pl-4"}></input>
+                  <button
+                      type="submit" className="h-fit md:h-fit p-3 md:p-4 w-fit bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold text-md button-animate red-shadow">{language ? "Unirse ya a la lista de espera" : "Join waitlist now!"}</button>
+
+              </form>
+              <div
+                  className="mt-8 text-md md:text-lg w-9/10 text-white">{language ? "Sé le primero en saber cuando Seveneat esté listo" : "Get notified as soon as Seveneat is ready."}</div>
+              <div className={"flex flex-row text-white items-center text-sm gap-1 mt-1"}><MdOutlineEmail></MdOutlineEmail>{language ? "Notificación de lanzamiento por correo" : "Launch notification via email"}</div>
           </div>
           <div className="flex flex-col bg-(--dark-green) h-fit items-center">
               <div className={"flex flex-col md:flex-row md:items-center gap-8 h-auto justify-between w-9/10 mt-14"}>
                   <div className={"flex flex-col gap-2 self-star"}>
-                      <div className={"flex flex-row items-center gap-2 text-white font-bold text-2xl"}><img src={logo} alt="logo" className="w-10 h-8/10 aspect-square"/> Seveneat</div>
-                      <div className={"text-white text-md"}>Intelligent meal planning for healthier living</div>
+                      <div className={"flex flex-row items-center gap-2 text-white font-bold text-2xl"}><img src={logo} alt="logo" className="w-10 h-8/10 aspect-square"/>Seveneat</div>
+                      <div className={"text-white text-md"}>{language ? "Planificación inteligente de comidas para una vida más saludable" : "Intelligent meal planning for healthier living"}</div>
                   </div>
                   <div className={"flex flex-col items-center gap-2"}>
                       <div className={"text-white font-bold text-md"}>
                           Links
                       </div>
-                      <div className={"flex flex-row items-center gap-2 text-white"}>
-                          <a href={"https://seveneat.com/documents/privacyPolicy.html"} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                          <a href={"https://seveneat.com/documents/privacyPolicy.html"} target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-                          <a href={"https://seveneat.com/documents/privacyPolicy.html"} target="_blank" rel="noopener noreferrer">GitHub</a>
+                      <div className={"flex flex-row items-center gap-6 text-white"}>
+                          <a href={"https://seveneat.com/documents/privacyPolicy.html"} target="_blank" rel="noopener noreferrer">{language ? "Política de Privacidad" : "Privacy Policy"}</a>
+                          <a href={"https://x.com/gonzalinux00"} target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+                          <a href={"https://github.com/gonzalinux"} target="_blank" rel="noopener noreferrer">GitHub</a>
                       </div>
                   </div>
               </div>
-              <div className={"text-gray-500 text-lg mt-10 mb-10 text-center"}>© 2025 Seveneat. All rights reserved.</div>
+              <div className={"text-gray-500 text-lg mt-10 mb-10 text-center"}>{language ? "© 2025 Seveneat. Todos los derechos reservados." : "© 2025 Seveneat. All rights reserved."}</div>
           </div>
-
       </div>
   )
 }

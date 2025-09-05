@@ -1,12 +1,22 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    * {
+        @apply transition-colors duration-500;
+    }
+}
 
 :root {
     --green: #4cb050;
     --light-green: #8cc98f;
     --brat: #236926;
+    --bg-color: #fbfbfb;
     --red: #d64a33;
     --dark-red: #700101;
     --dark-green: #1e2b23;
+    --app-background-dark-mode: #3b6953;
+    --background-dark-green: #2d4838;
     --white: #ffffff;
     --grey: #a6a5a5;
     --light-grey: #dedede;
@@ -18,10 +28,12 @@ html, body {
     box-sizing: border-box;
     width: 100%;
     min-height: 100%;
+    scroll-behavior: smooth;
+    z-index: -20;
 }
 
 .card {
-    z-index: -2;
+    z-index: 0;
     position: relative;
     overflow: hidden;
 }
@@ -29,10 +41,10 @@ html, body {
 .card::before {
     content: "";
     position: absolute;
-    top: -100%;
-    left: -100%;
-    width: 300%;
-    height: 300%;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
     background-image: conic-gradient(
             from 0deg,
             var(--light-green),
@@ -45,10 +57,53 @@ html, body {
     );
     filter: blur();
     opacity: 0.5;
-    animation: spin 3s linear infinite;
+    animation: spin 2s linear infinite;
 }
 
-@media (max-width: 305px) { /* a partir de md (tablet/desktop) */
+.button-animate {
+    transition: all 200ms ease-in-out;
+}
+
+.button-animate:hover {
+    transform: translateY(-2px);
+    cursor: pointer;
+    box-shadow: 2px 2px 10px 0 var(--light-grey);
+}
+
+.button-animate:active {
+    transform: translateY(0);
+}
+
+.red-shadow:hover {
+    box-shadow: 2px 2px 10px 0 var(--dark-red);
+}
+
+.language {
+    transition: all 200ms ease-in-out;
+}
+
+.language:hover {
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+.fadeInFromLeft {
+    animation: fadeInFromLeft 1.5s ease-in-out forwards;
+}
+
+.fadeInFromRight {
+    animation: fadeInFromRight 1.5s ease-in-out forwards;
+}
+
+.fadeInFromDown {
+    animation: fadeInFromDown 1.5s ease-in-out forwards;
+}
+
+.fadeInFromUp {
+    animation: fadeInFromUp 1.5s ease-in-out forwards;
+}
+
+@media (max-width: 305px) {
     .card::before {
         animation: none;
     }
@@ -63,14 +118,46 @@ html, body {
     }
 }
 
-@keyframes elevate {
+@keyframes fadeInFromLeft {
     0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
+        opacity: 0;
+        transform: translateX(-30px);
     }
     100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInFromDown {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInFromUp {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
         transform: translateY(0);
     }
 }
