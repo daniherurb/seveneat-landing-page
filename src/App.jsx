@@ -16,6 +16,39 @@ function App() {
     const [open, setOpen] = useState(false);
     const [dark, setDark] = useState(false);
     const [language, setLanguage] = useState(false);
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+        let browserLanguage = window.navigator.language || navigator.language;
+        if (browserLanguage && browserLanguage === "es") {
+            setLanguage(true);
+        }
+    }, [])
+    
+    const joinWaitlist = async () => {
+        try {
+            const response = await fetch("https://seveneat.com/emailwaitlist", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    locale: language ? "es" : "en",
+                    email: email
+                }),
+            });
+            const data = await response.json();
+            console.log(data)
+            alert(data)
+            return data;
+        } catch (error) {
+            console.error("Error joining waitlist:", error);
+        }
+    }
+
+    const handleChange = (e) =>  {
+        setEmail(e.target.value)
+    }
 
     const switchMode = () => {
         setDark(!dark);
@@ -77,7 +110,7 @@ function App() {
       <div className={`${dark ? "dark" : ""} flex flex-col justify-center w-full overflow-x-hidden dark:bg-(--background-dark-green)`}>
           <div className="fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full h-20 bg-white dark:bg-(--dark-green) shadow-md z-10">
               <a href={"/"} className="flex flex-row h-full items-center m-2 gap-2">
-                  <img src={logo} alt="logo" className="w-auto h-8/10 aspect-square"/>
+                  <img src={logo} alt="Seveneat" className="w-auto h-8/10 aspect-square"/>
                   <p className="text-2xl font-bold text-(--red)">Seveneat</p>
               </a>
               <GiHamburgerMenu className={`text-2xl text-(--red) mt-1 mr-8 transform transition duration-400 ${open ? '-rotate-90' : ''} hover: cursor-pointer md:hidden`} onClick={toggleMenu}/>
@@ -96,7 +129,7 @@ function App() {
         {open &&
           <div className = "min-w-50 fixed flex flex-col items-center p-3 right-2 top-21 bg-white rounded-md mr-3 mt-3 gap-2 shadow-lg md:hidden z-13 dark:bg-(--dark-green) dark:border-(--green) dark:border-3">
               <a href={"#waitlist"} className={"w-full"}><button className="w-full p-3 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold button-animate dark:bg-(--green) dark:border-(--green)">{language ? "Unirse a la lista de espera" : "Join waitlist"}</button></a>
-              <a href={"#learn-more"} className={"w-full"}><button className="w-full p-3 bg-(--white) border-2 border-(--red) rounded-md text-(--red) font-bold w-full button-animate dark:bg-(--dark-green) dark:border-(--green) dark:text-(--green)">{language ? "Conocer más" : "Learn more"}</button></a>
+              <a href={"#learn-more"} className={"w-full"}><button className="w-full p-3 bg-(--white) border-2 border-(--red) rounded-md text-(--red) font-bold button-animate dark:bg-(--dark-green) dark:border-(--green) dark:text-(--green)">{language ? "Conocer más" : "Learn more"}</button></a>
               <div className="flex flex-row align-center justify-between w-9/10 items-center mt-2">
                   <label className="relative inline-flex items-center cursor-pointer">
                       <input className="sr-only peer" type="checkbox" checked={dark} onClick={switchMode}/>
@@ -322,18 +355,15 @@ function App() {
                   </div>
               </div>
           </div>
-          <div className="flex flex-col bg-(--red) h-fit items-center text-center pt-15 pb-8 pt-13">
+          <div className="flex flex-col bg-(--red) h-fit items-center text-center pt-15 pb-8">
               <div id="waitlist" className="scroll-mt-40 text-3xl font-bold md:text-4xl w-9/10 text-white">{language ? "¿Preparado para Transformar tu Planificación de Comidas?" : "Ready to Transform Your Meal Planning?"}</div>
               <div className="mt-5 text-md md:text-lg w-9/10 text-white">{language ? "Sé el primero en experimentar la planificación de comidas con IA de Seveneat. ¡Únete a nuestra lista de espera exclusiva y obtén acceso temprano cuando lancemos!" : "Be the first to experience Seveneat's AI-powered meal planning. Join our exclusive waitlist and get early access when we launch!"}</div>
-              <form className={"flex flex-col md:flex-row gap-5 items-center mt-12"} action="/waitlist" method="post" aria-labelledby="waitlist-heading">
-                  <input type="hidden" name="_csrf_token"
-                         value="PzsANDgEcQh5WVdjegEUNDNOBnF0CBo-gqGVArGKT562LnnfzxSFGMYj"/>
-                  <input type="hidden" name="locale" value="en"/>
-                  <input type="email" id="email" name="email" placeholder={language ? "Correo electrónico" : "Email adress"} required aria-describedby="email-description" className={"w-60 md:w-80 h-8 md:h-14 bg-white rounded-md p-2 pl-4"}></input>
+              <div className={"flex flex-col md:flex-row gap-5 items-center mt-12"}>
+                  <input type="email" value = {email} onChange = {handleChange} id="email" name="email" placeholder={language ? "Correo electrónico" : "Email adress"} required aria-describedby="email-description" className={"w-60 md:w-80 h-8 md:h-14 bg-white rounded-md p-2 pl-4"}></input>
                   <button
-                      type="submit" className="h-fit md:h-fit p-3 md:p-4 w-fit bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold text-md button-animate red-shadow">{language ? "Unirse ya a la lista de espera" : "Join waitlist now!"}</button>
+                      onClick={joinWaitlist} className="h-fit md:h-fit p-3 md:p-4 w-fit bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold text-md button-animate red-shadow">{language ? "Unirse ya a la lista de espera" : "Join waitlist now!"}</button>
 
-              </form>
+              </div>
               <div
                   className="mt-8 text-md md:text-lg w-9/10 text-white">{language ? "Sé le primero en saber cuando Seveneat esté listo" : "Get notified as soon as Seveneat is ready."}</div>
               <div className={"flex flex-row text-white items-center text-sm gap-1 mt-1"}><MdOutlineEmail></MdOutlineEmail>{language ? "Notificación de lanzamiento por correo" : "Launch notification via email"}</div>
