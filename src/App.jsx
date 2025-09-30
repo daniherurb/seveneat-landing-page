@@ -31,10 +31,10 @@ function App() {
 
   useEffect(() => {
     // Check if the page was loaded with Spanish HTML
-    const rootElement = document.getElementById('root');
-    const pageLang = rootElement?.getAttribute('data-lang');
+    const rootElement = document.getElementById("root");
+    const pageLang = rootElement?.getAttribute("data-lang");
 
-    if (pageLang === 'es') {
+    if (pageLang === "es") {
       setLanguage(true);
     } else {
       // Fallback to browser language detection
@@ -141,7 +141,9 @@ function App() {
         <GiHamburgerMenu
           className={`text-2xl text-(--red) mt-1 mr-8 transform transition duration-400 ${open ? "-rotate-90" : ""} hover: cursor-pointer md:hidden`}
           onClick={toggleMenu}
-          aria-label={language ? "Abrir menú de navegación" : "Open navigation menu"}
+          aria-label={
+            language ? "Abrir menú de navegación" : "Open navigation menu"
+          }
           aria-expanded={open}
           role="button"
           tabIndex={0}
@@ -160,10 +162,14 @@ function App() {
           <p
             className="text-(--red) text-md dark:text-(--green) language font-bold"
             onClick={switchLanguage}
-            aria-label={language ? "Cambiar idioma a inglés" : "Switch language to Spanish"}
+            aria-label={
+              language
+                ? "Cambiar idioma a inglés"
+                : "Switch language to Spanish"
+            }
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && switchLanguage()}
+            onKeyDown={(e) => e.key === "Enter" && switchLanguage()}
           >
             {language ? "EN" : "ES"}
           </p>
@@ -173,7 +179,15 @@ function App() {
               type="checkbox"
               checked={dark}
               onClick={switchMode}
-              aria-label={language ? (dark ? "Cambiar a modo claro" : "Cambiar a modo oscuro") : (dark ? "Switch to light mode" : "Switch to dark mode")}
+              aria-label={
+                language
+                  ? dark
+                    ? "Cambiar a modo claro"
+                    : "Cambiar a modo oscuro"
+                  : dark
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+              }
             />
             <div className="w-20 h-10 rounded-full bg-gradient-to-r from-(--red) to-(--dark-red) peer-checked:from-(--background-dark-green) peer-checked:to-(--green) transition-all duration-500 after:content-['☀️'] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-8 after:w-8 after:flex after:items-center after:justify-center after:transition-all after:duration-500 peer-checked:after:translate-x-10 peer-checked:after:content-['🌙'] after:shadow-md after:text-lg"></div>
           </label>
@@ -198,17 +212,29 @@ function App() {
                 type="checkbox"
                 checked={dark}
                 onClick={switchMode}
-                aria-label={language ? (dark ? "Cambiar a modo claro" : "Cambiar a modo oscuro") : (dark ? "Switch to light mode" : "Switch to dark mode")}
+                aria-label={
+                  language
+                    ? dark
+                      ? "Cambiar a modo claro"
+                      : "Cambiar a modo oscuro"
+                    : dark
+                      ? "Switch to light mode"
+                      : "Switch to dark mode"
+                }
               />
               <div className="w-20 h-10 rounded-full bg-gradient-to-r from-(--red) to-(--dark-red) peer-checked:from-(--background-dark-green) peer-checked:to-(--green) transition-all duration-500 after:content-['☀️'] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-8 after:w-8 after:flex after:items-center after:justify-center after:transition-all after:duration-500 peer-checked:after:translate-x-10 peer-checked:after:content-['🌙'] after:shadow-md after:text-lg"></div>
             </label>
             <p
               className="text-(--red) text-md dark:text-(--green) language font-bold"
               onClick={switchLanguage}
-              aria-label={language ? "Cambiar idioma a inglés" : "Switch language to Spanish"}
+              aria-label={
+                language
+                  ? "Cambiar idioma a inglés"
+                  : "Switch language to Spanish"
+              }
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => e.key === 'Enter' && switchLanguage()}
+              onKeyDown={(e) => e.key === "Enter" && switchLanguage()}
             >
               {language ? "EN" : "ES"}
             </p>
@@ -850,10 +876,26 @@ function App() {
             </div>
           </div>
         </div>
-        <div className={"text-gray-500 text-lg mt-10 mb-10 text-center"}>
-          {language
-            ? "© 2025 Seveneat. Todos los derechos reservados."
-            : "© 2025 Seveneat. All rights reserved."}
+        <div
+          className={
+            "flex flex-col gap-2 text-gray-500 text-lg mt-10 mb-10 text-center"
+          }
+        >
+          <div>
+            {language
+              ? "© 2025 Seveneat. Todos los derechos reservados."
+              : "© 2025 Seveneat. All rights reserved."}
+          </div>
+          <div className="text-sm">
+            {language ? "Landing page creada por " : "Landing page created by "}
+            <a
+              href="https://github.com/daniherurb"
+              target="_blank"
+              className="text-gray-400 hover:text-gray-300 transition-colors"
+            >
+              daniherurb
+            </a>
+          </div>
         </div>
       </div>
     </div>
