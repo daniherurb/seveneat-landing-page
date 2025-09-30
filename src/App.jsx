@@ -58,8 +58,9 @@ function App() {
         }),
       });
       const data = await response.json();
-      console.log(data);
-      alert(data);
+      if (data) {
+          alert("Email added successfully!");
+      }
       return data;
     } catch (error) {
       console.error("Error joining waitlist:", error);
