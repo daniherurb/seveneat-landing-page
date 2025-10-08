@@ -28,6 +28,7 @@ function App() {
   const [dark, setDark] = useState(false);
   const [language, setLanguage] = useState(false);
   const [email, setEmail] = useState("");
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     // Check if the page was loaded with Spanish HTML
@@ -45,6 +46,13 @@ function App() {
     }
   }, []);
 
+  const showNotification = (message, type) => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+  };
+
   const joinWaitlist = async () => {
     try {
       const response = await fetch("/emailwaitlist", {
@@ -58,12 +66,49 @@ function App() {
         }),
       });
       const data = await response.json();
-      if (data) {
-          alert("Email added successfully!");
+
+      if (response.status === 201 || (response.ok && data.success)) {
+        showNotification(
+          language
+            ? "¡Correo añadido exitosamente!"
+            : "Email added successfully!",
+          "success"
+        );
+        setEmail("");
+      } else if (response.status === 409) {
+        // Email already exists
+        showNotification(
+          language
+            ? "Este correo ya está en nuestra lista de espera"
+            : "This email is already on our waitlist",
+          "error"
+        );
+      } else if (response.status === 400) {
+        // Invalid email format
+        showNotification(
+          language
+            ? "Formato de correo inválido"
+            : "Invalid email format",
+          "error"
+        );
+      } else {
+        // Generic error
+        showNotification(
+          language
+            ? "Error al añadir el correo. Por favor, inténtalo de nuevo."
+            : "Error adding email. Please try again.",
+          "error"
+        );
       }
       return data;
     } catch (error) {
       console.error("Error joining waitlist:", error);
+      showNotification(
+        language
+          ? "Error al conectar con el servidor. Por favor, inténtalo de nuevo."
+          : "Error connecting to server. Please try again.",
+        "error"
+      );
     }
   };
 
@@ -130,6 +175,31 @@ function App() {
     <div
       className={`${dark ? "dark" : ""} flex flex-col justify-center w-full overflow-x-hidden dark:bg-(--background-dark-green)`}
     >
+      {notification && (
+        <div
+          className={`fixed top-24 right-4 md:right-8 z-50 p-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out ${
+            notification.type === "success"
+              ? "bg-green-500 text-white"
+              : "bg-red-500 text-white"
+          } animate-slide-in`}
+        >
+          <div className="flex items-center gap-3">
+            {notification.type === "success" ? (
+              <FaCheck className="text-xl" />
+            ) : (
+              <span className="text-xl font-bold">⚠</span>
+            )}
+            <p className="font-medium">{notification.message}</p>
+            <button
+              onClick={() => setNotification(null)}
+              className="ml-2 text-white hover:text-gray-200 transition-colors"
+              aria-label="Close notification"
+            >
+              <span className="text-xl font-bold">✕</span>
+            </button>
+          </div>
+        </div>
+      )}
       <div className="fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full h-20 bg-white dark:bg-(--dark-green) shadow-md z-10">
         <a href={"/"} className="flex flex-row h-full items-center m-2 gap-2">
           <img
