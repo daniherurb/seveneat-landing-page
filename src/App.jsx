@@ -813,7 +813,7 @@ function App() {
         </div>
         <div className="mt-8 text-md md:text-lg w-9/10 text-white">
           {language
-            ? "Sé le primero en saber cuando Seveneat esté listo"
+            ? "Sé el primero en saber cuando Seveneat esté listo"
             : "Get notified as soon as Seveneat is ready."}
         </div>
         <div
