@@ -30,9 +30,45 @@ jobs:
         run: npm run build
 
       - name: Commit and push dist folder
+        id: commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add dist -f
-          git diff --staged --quiet || git commit -m "Update dist folder [skip ci]"
-          git push
+          if git diff --staged --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Update dist folder [skip ci]"
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create release tag
+        if: steps.commit.outputs.changed == 'true'
+        id: tag
+        run: |
+          TAG="release-$(date +'%Y%m%d-%H%M%S')"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          git tag $TAG
+          git push origin $TAG
+
+      - name: Create zip of dist folder
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          cd dist
+          zip -r ../dist.zip .
+          cd ..
+
+      - name: Create GitHub Release
+        if: steps.commit.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: Build ${{ steps.tag.outputs.tag }}
+          body: |
+            Automated build from commit ${{ github.sha }}
+
+            Download `dist.zip` to get the static files.
+          files: dist.zip
+          draft: false
+          prerelease: false
