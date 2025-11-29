@@ -72,7 +72,7 @@ function App() {
           language
             ? "¡Correo añadido exitosamente!"
             : "Email added successfully!",
-          "success"
+          "success",
         );
         setEmail("");
       } else if (response.status === 409) {
@@ -81,15 +81,13 @@ function App() {
           language
             ? "Este correo ya está en nuestra lista de espera"
             : "This email is already on our waitlist",
-          "error"
+          "error",
         );
       } else if (response.status === 400) {
         // Invalid email format
         showNotification(
-          language
-            ? "Formato de correo inválido"
-            : "Invalid email format",
-          "error"
+          language ? "Formato de correo inválido" : "Invalid email format",
+          "error",
         );
       } else {
         // Generic error
@@ -97,7 +95,7 @@ function App() {
           language
             ? "Error al añadir el correo. Por favor, inténtalo de nuevo."
             : "Error adding email. Please try again.",
-          "error"
+          "error",
         );
       }
       return data;
@@ -107,7 +105,7 @@ function App() {
         language
           ? "Error al conectar con el servidor. Por favor, inténtalo de nuevo."
           : "Error connecting to server. Please try again.",
-        "error"
+        "error",
       );
     }
   };
@@ -222,7 +220,7 @@ function App() {
         <div className="hidden md:flex flex-row gap-4 items-center mr-8">
           <a href={"#waitlist"}>
             <button className="p-3 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold button-animate dark:bg-(--green) dark:border-(--green)">
-              {language ? "Unirse a la lista de espera" : "Join waitlist"}
+              {language ? "Quiero probarlo" : "I want to try it"}
             </button>
           </a>
           <a href={"#learn-more"}>
@@ -268,7 +266,7 @@ function App() {
         <div className="min-w-50 fixed flex flex-col items-center p-3 right-2 top-21 bg-white rounded-md mr-3 mt-3 gap-2 shadow-lg md:hidden z-13 dark:bg-(--dark-green) dark:border-(--green) dark:border-3">
           <a href={"#waitlist"} className={"w-full"}>
             <button className="w-full p-3 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold button-animate dark:bg-(--green) dark:border-(--green)">
-              {language ? "Unirse a la lista de espera" : "Join waitlist"}
+              {language ? "Quiero probarlo" : "I want to try it"}
             </button>
           </a>
           <a href={"#learn-more"} className={"w-full"}>
@@ -316,23 +314,21 @@ function App() {
         <div className="flex flex-col w-fit gap-6 bg-gradient-to-r from-green-600 via-red-400 to-red-700 bg-clip-text">
           <div className="text-5xl md:text-6xl font-bold text-(--dark-green) text-center md:text-start h-fit w-fit dark:text-white">
             {language
-              ? "Transforma tu Planificación de Comidas con"
-              : "Transform Your Meal Planning with"}
+              ? "Deja de pensar qué cocinar."
+              : "Stop thinking about what to cook."}
             <div className="text-transparent leading-none">
-              {language ? "Inteligencia Artificial" : "AI-Powered Intelligence"}
+              {language ? "Empieza a disfrutarlo." : "Start enjoying it."}
             </div>
           </div>
           <div className="text-lg md:text-xl text-gray-500 text-center md:text-start fadeInFromUp md:fadeInFromLeft dark:text-white">
             {language
-              ? "Seveneat aprende tus hábitos alimentarios y genera planes semanales de comidas personalizados. Añade comidas mediante voz, fotos o comandos simples, y deja que nuestra IA cree calendarios semanales perfectos con listas de compra automáticas."
-              : "Seveneat learns your eating habits and generates personalized weekly meal plans. Add meals through voice, photos, or simple prompts, then let our AI create perfect weekly calendars with automatic shopping lists."}
+              ? "Ya sabes cocinar. Ya tienes tus comidas. Solo necesitas que alguien decida por ti. Nosotros lo hacemos. Tú solo cocinas lo que ya sabes hacer."
+              : "You already know how to cook. You already have your meals. You just need someone to decide for you. We do that. You just cook what you already know how to make."}
           </div>
           <div className="flex flex-row gap-3 justify-center md:justify-start fadeInFromUp md:fadeInFromLeft">
             <a href={"#waitlist"}>
               <button className="p-4 bg-(--red) border-2 border-(--red) rounded-md text-(--white) font-bold text-lg button-animate">
-                {language
-                  ? "Unirse a la lista de espera"
-                  : "Join waitlist now!"}
+                {language ? "Quiero probarlo" : "I want to try it"}
               </button>
             </a>
             <a href={"#learn-more"}>
@@ -433,31 +429,40 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="flex flex-col h-fit items-center text-center mt-16 mb-10 p-5">
+        <div className="text-2xl md:text-3xl font-bold text-(--dark-green) w-9/10 max-w-4xl dark:text-white">
+          {language
+            ? "¿Cansado de recetas que nunca harás? Organiza las que ya haces."
+            : "Tired of recipes you'll never make? Organize the ones you already do."}
+        </div>
+      </div>
       <div className="flex flex-col bg-(--background-dark-green) h-fit items-center text-center mt-10 pb-8 dark:bg-(--dark-green)">
         <div
           id="learn-more"
           className="scroll-mt-40 mt-13 text-3xl font-bold md:text-4xl w-9/10 text-white"
         >
           {language
-            ? "Planificación Inteligente de Comidas Simplificada"
-            : "Intelligent Meal Planning Made Simple"}
+            ? "Tres cosas que hace por ti"
+            : "Three things it does for you"}
         </div>
         <div className="mt-5 text-md md:text-lg w-9/10 text-white">
           {language
-            ? "Descubre cómo Seveneat revoluciona la forma en que planificas, compras y disfrutas tus comidas"
-            : "Discover how Seveneat revolutionizes the way you plan, shop, and enjoy your meals"}
+            ? "Simple. Rápido. Sin complicaciones."
+            : "Simple. Fast. No complications."}
         </div>
         <div className="grid md:grid-cols-2 h-fit gap-4 items-center mt-7 w-9/10 justify-between max-w-330">
           <div className="h-full w-full flex flex-col items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 dark:bg-(--background-dark-green) dark:border-(--background-dark-green)">
             <FaBowlFood className="text-(--red) text-5xl drop-shadow-lg z-0"></FaBowlFood>
             <div className="bg-gray-100 w-full h-[2px] rounded-4xl" />
             <div className="text-(--dark-green) text-xl font-bold dark:text-white">
-              {language ? "Añade Comidas a tu Manera" : "Add Meals Your Way"}
+              {language
+                ? "Tu Biblioteca Personal de Comidas"
+                : "Your Personal Meal Library"}
             </div>
             <div className="text-(--grey) text-md text-start">
               {language
-                ? "Añade nuevas comidas a tu colección usando comandos de voz, reconocimiento de fotos o comandos de texto simples - lo que te resulte más natural."
-                : "Add new meals to your collection using voice commands, photo recognition, or simple text prompts - whatever feels natural to you."}
+                ? "Dile qué comiste hoy, sácale una foto al plato, o escríbelo rápido. Como prefieras. Así de simple."
+                : "Tell it what you ate today, snap a photo of your plate, or just type it quickly. However you prefer. That simple."}
             </div>
             <div
               className={
@@ -468,21 +473,19 @@ function App() {
                 <MdKeyboardVoice
                   className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}
                 ></MdKeyboardVoice>
-                {language ? "Dictado por voz" : "Voice dictation"}
+                {language ? "Dilo en voz alta" : "Say it out loud"}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <IoCameraOutline
                   className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}
                 ></IoCameraOutline>
-                {language
-                  ? "Detección de comidas por foto"
-                  : "Photo meal detection"}
+                {language ? "Foto del plato" : "Snap a photo"}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <TbInputAi
                   className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}
                 ></TbInputAi>
-                {language ? "Comandos de texto con IA" : "AI text prompts"}
+                {language ? "Escríbelo" : "Type it out"}
               </div>
             </div>
           </div>
@@ -491,13 +494,13 @@ function App() {
             <div className="bg-gray-100 w-full h-[2px] rounded-4xl" />
             <div className="text-(--dark-green) text-xl font-bold dark:text-white">
               {language
-                ? "Planes Semanales Generados por IA"
-                : "AI-Generated Weekly Plans"}
+                ? "Planes Semanales Inteligentes"
+                : "Smart Weekly Plans"}
             </div>
             <div className="text-(--grey) text-md text-start">
               {language
-                ? "Nuestro algoritmo inteligente analiza tus preferencias alimentarias, restricciones dietéticas y patrones de alimentación para crear calendarios semanales de comidas perfectamente equilibrados."
-                : "Our intelligent algorithm analyzes your meal preferences, dietary restrictions, and eating patterns to create perfectly balanced weekly meal calendars."}
+                ? "Aprende qué te gusta comer y cuándo. Sabe qué comiste ayer. Balancea tu semana automáticamente. Cada semana mejora porque te conoce mejor."
+                : "Learns what you like to eat and when. Knows what you ate yesterday. Balances your week automatically. Gets better each week because it knows you better."}
             </div>
             <div
               className={
@@ -627,15 +630,21 @@ function App() {
               "flex flex-col w-full h-fit items-center p-7 self-center rounded-2xl bg-gradient-to-r from-green-500 to-red-500 backdrop-blur-md"
             }
           >
-            <div className="text-3xl font-bold md:text-4xl w-9/10 text-(--white) text-center">
-              {language
-                ? "Lleva la Planificación de Comidas al siguiente nivel"
-                : "Take Meal Planning to the Next Level"}
+            <div className="text-3xl font-bold md:text-4xl w-9/10 text-(--white) text-center flex items-center justify-center gap-3">
+              <span>Seveneat</span>
+              <span className="inline-flex items-center bg-white px-2 py-1 rounded-xl shadow-lg">
+                <span className="inline-flex items-center justify-center bg-(--red) dark:bg-[#FF6E5B] text-white font-bold rounded-full w-6 h-6 text-lg leading-none">
+                  +
+                </span>
+                <span className="text-(--red) dark:text-[#FF6E5B] font-bold text-lg ml-1">
+                  Plus
+                </span>
+              </span>
             </div>
             <div className="mt-5 text-md md:text-lg w-9/10 text-white text-center">
               {language
-                ? "Desbloquea todo el potencial de Seveneat con capacidades avanzadas de IA y funciones exclusivas."
-                : "Unlock the full potential of Seveneat with advanced AI capabilities and exclusive features."}
+                ? "Usa la IA sin límites. Mejores planes. Todo lo que saquemos nuevo."
+                : "Use AI without limits. Better plans. Everything new we release."}
             </div>
             <div
               className={
@@ -761,12 +770,12 @@ function App() {
         className="flex flex-col h-fit items-center text-center pb-14"
       >
         <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-(--dark-green) dark:text-white">
-          {language ? "Como funciona Seveneat" : "How Seveneat Works"}
+          {language ? "Tres pasos. Eso es todo." : "Three steps. That's it."}
         </div>
         <div className="mt-5 text-md md:text-lg w-9/10 text-(--dark-green) dark:text-white">
           {language
-            ? "Tres pasos simples para transformar tu experiencia de planificación de comidas"
-            : "Three simple steps to transform your meal planning experience."}
+            ? "Nada complicado. Nada técnico. Solo sentido común."
+            : "Nothing complicated. Nothing technical. Just common sense."}
         </div>
         <div className="grid md:grid-cols-3 w-9/10 mt-10 gap-15 md:gap-3">
           <div className={"flex flex-col items-center gap-5 h-auto"}>
@@ -817,8 +826,8 @@ function App() {
               }
             >
               {language
-                ? "Califica las comidas por sabor y saludabilidad. Establece tus preferencias dietéticas y objetivos de salud para recomendaciones personalizadas."
-                : "Rate meals for taste and healthiness. Set your dietary preferences and health goals for personalized recommendations."}
+                ? "Califica las comidas por sabor y saludabilidad. Establece tus objetivos de salud para que la IA aprenda qué comidas priorizar en tus planes."
+                : "Rate meals for taste and healthiness. Set your health goals so AI learns which meals to prioritize in your plans."}
             </div>
           </div>
           <div className={"flex flex-col items-center gap-5 h-auto"}>
@@ -848,19 +857,110 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="flex flex-col h-fit items-center text-center pt-15 pb-15 p-5">
+        <div className="text-3xl md:text-4xl font-bold text-(--dark-green) w-9/10 max-w-7xl dark:text-white mb-8">
+          {language ? "¿Esto es para ti?" : "Is this for you?"}
+        </div>
+        <div className="grid md:grid-cols-3 w-9/10 max-w-7xl gap-8 mt-8">
+          <div className="flex flex-col items-center text-center gap-4 p-6 bg-white dark:bg-(--background-dark-green) rounded-2xl shadow-lg">
+            <FaBowlFood className="text-(--red) text-5xl" />
+            <div className="text-(--dark-green) text-xl font-bold dark:text-white">
+              {language ? "Ya sabes cocinar" : "You already know how to cook"}
+            </div>
+            <div className="text-(--grey) text-md">
+              {language
+                ? "Tienes tus 15-20 comidas de siempre. Las haces con los ojos cerrados. Solo te falta saber cuándo hacer cada una. Eso lo hacemos nosotros."
+                : "You have your usual 15-20 meals. You can make them with your eyes closed. You just need to know when to make each one. We handle that."}
+            </div>
+          </div>
+          <div className="flex flex-col items-center text-center gap-4 p-6 bg-white dark:bg-(--background-dark-green) rounded-2xl shadow-lg">
+            <IoHomeOutline className="text-(--red) text-5xl" />
+            <div className="text-(--dark-green) text-xl font-bold dark:text-white">
+              {language ? "Tienes familia" : "You have a family"}
+            </div>
+            <div className="text-(--grey) text-md">
+              {language
+                ? "A tu hijo no le gustan los pimientos. Tu pareja es intolerante a la lactosa. Tú odias el pescado. Sabemos. Y planificamos para todos."
+                : "Your kid hates peppers. Your partner is lactose intolerant. You can't stand fish. We know. And we plan for everyone."}
+            </div>
+          </div>
+          <div className="flex flex-col items-center text-center gap-4 p-6 bg-white dark:bg-(--background-dark-green) rounded-2xl shadow-lg">
+            <IoCalendar className="text-(--red) text-5xl" />
+            <div className="text-(--dark-green) text-xl font-bold dark:text-white">
+              {language ? "Odias decidir" : "You hate deciding"}
+            </div>
+            <div className="text-(--grey) text-md">
+              {language
+                ? 'Son las 6pm. Llegas cansado. "¿Qué hacemos de comer?" Ya no tienes que pensarlo. Nosotros ya decidimos. Solo cocina y disfruta.'
+                : "It's 6pm. You're tired. \"What's for dinner?\" You don't have to think about it anymore. We already decided. Just cook and enjoy."}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col bg-(--background-dark-green) h-fit items-center text-center pt-15 pb-15 p-5 dark:bg-(--dark-green)">
+        <div className="text-3xl md:text-4xl font-bold text-white w-9/10 max-w-7xl mb-12">
+          {language ? "Preguntas frecuentes" : "Frequently asked questions"}
+        </div>
+        <div className="w-9/10 max-w-4xl grid gap-6">
+          <div className="text-left bg-white dark:bg-(--background-dark-green) p-6 rounded-2xl">
+            <div className="text-(--dark-green) dark:text-white text-xl font-bold mb-3">
+              {language
+                ? "¿Funciona con restricciones dietéticas?"
+                : "Does it work with dietary restrictions?"}
+            </div>
+            <div className="text-(--grey)">
+              {language
+                ? "Sí. Solo planifica con TU comida. Si eres vegetariano, solo añades comidas vegetarianas. Si no puedes comer gluten, no añades nada con gluten. Así de simple."
+                : "Yes. It only plans with YOUR food. If you're vegetarian, you only add vegetarian meals. If you can't eat gluten, you don't add anything with gluten. That simple."}
+            </div>
+          </div>
+          <div className="text-left bg-white dark:bg-(--background-dark-green) p-6 rounded-2xl">
+            <div className="text-(--dark-green) dark:text-white text-xl font-bold mb-3">
+              {language ? "¿Mis datos son privados?" : "Is my data private?"}
+            </div>
+            <div className="text-(--grey)">
+              {language
+                ? "100%. Tus comidas son tuyas. Punto. No las compartimos, no las vendemos, no las tocamos. Nunca."
+                : "100%. Your meals are yours. Period. We don't share them, don't sell them, don't touch them. Ever."}
+            </div>
+          </div>
+          <div className="text-left bg-white dark:bg-(--background-dark-green) p-6 rounded-2xl">
+            <div className="text-(--dark-green) dark:text-white text-xl font-bold mb-3">
+              {language ? "¿Hay versión gratuita?" : "Is there a free version?"}
+            </div>
+            <div className="text-(--grey)">
+              {language
+                ? "Sí. Habrá versión gratis para empezar. Seveneat Plus son $3.99/mes y te da IA ilimitada, mejores planes, y acceso a todo lo nuevo que saquemos."
+                : "Yes. There'll be a free version to start. Seveneat Plus is $3.99/mo and gives you unlimited AI, better plans, and access to everything new we release."}
+            </div>
+          </div>
+          <div className="text-left bg-white dark:bg-(--background-dark-green) p-6 rounded-2xl">
+            <div className="text-(--dark-green) dark:text-white text-xl font-bold mb-3">
+              {language
+                ? "¿Cuándo estará disponible?"
+                : "When will it be available?"}
+            </div>
+            <div className="text-(--grey)">
+              {language
+                ? "Pronto. Estamos en beta ahora. Si te unes a la lista, eres de los primeros en probarlo. Te avisamos por email cuando esté listo."
+                : "Soon. We're in beta now. If you join the list, you're among the first to try it. We'll email you when it's ready."}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="flex flex-col bg-(--red) h-fit items-center text-center pt-15 pb-8">
         <div
           id="waitlist"
           className="scroll-mt-40 text-3xl font-bold md:text-4xl w-9/10 text-white"
         >
           {language
-            ? "¿Preparado para Transformar tu Planificación de Comidas?"
-            : "Ready to Transform Your Meal Planning?"}
+            ? "Avísame cuando esté listo"
+            : "Let me know when it's ready"}
         </div>
         <div className="mt-5 text-md md:text-lg w-9/10 text-white">
           {language
-            ? "Sé el primero en experimentar la planificación de comidas con IA de Seveneat. ¡Únete a nuestra lista de espera exclusiva y obtén acceso temprano cuando lancemos!"
-            : "Be the first to experience Seveneat's AI-powered meal planning. Join our exclusive waitlist and get early access when we launch!"}
+            ? "Deja tu email. Serás de los primeros en probarlo."
+            : "Leave your email. You'll be among the first to try it."}
         </div>
         <div className={"flex flex-col md:flex-row gap-5 items-center mt-12"}>
           <input
@@ -869,7 +969,7 @@ function App() {
             onChange={handleChange}
             id="email"
             name="email"
-            placeholder={language ? "Correo electrónico" : "Email adress"}
+            placeholder={language ? "Correo electrónico" : "Email address"}
             required
             aria-describedby="email-description"
             className={"w-60 md:w-80 h-8 md:h-14 bg-white rounded-md p-2 pl-4"}
@@ -878,13 +978,13 @@ function App() {
             onClick={joinWaitlist}
             className="h-fit md:h-fit p-3 md:p-4 w-fit bg-(--green) border-2 border-(--green) rounded-md text-(--white) font-bold text-md button-animate red-shadow"
           >
-            {language ? "Unirse ya a la lista de espera" : "Join waitlist now!"}
+            {language ? "Avísame" : "Notify me"}
           </button>
         </div>
         <div className="mt-8 text-md md:text-lg w-9/10 text-white">
           {language
-            ? "Sé el primero en saber cuando Seveneat esté listo"
-            : "Get notified as soon as Seveneat is ready."}
+            ? "Te avisamos por email cuando esté listo"
+            : "We'll email you when it's ready"}
         </div>
         <div
           className={"flex flex-row text-white items-center text-sm gap-1 mt-1"}
@@ -916,8 +1016,8 @@ function App() {
             </div>
             <div className={"text-white text-md"}>
               {language
-                ? "Planificación inteligente de comidas para una vida más saludable"
-                : "Intelligent meal planning for healthier living"}
+                ? "Las comidas que ya haces, planificadas automáticamente"
+                : "The meals you already make, automatically planned"}
             </div>
           </div>
           <div className={"flex flex-col items-center gap-2"}>
