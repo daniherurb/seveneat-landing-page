@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import logo from "./assets/logo.png";
+import screenshot from "./assets/screenshot.png";
 import {
   MdKeyboardVoice,
   MdDesignServices,
@@ -344,92 +345,11 @@ function App() {
         </div>
         <div className="flex items-center justify-center fadeInFromDown md:fadeInFromRight">
           <div className="bg-gray-800 w-80 h-160 rounded-[40px] m-4 p-[20px] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.4)]">
-            <div className="flex flex-col bg-white w-full h-full rounded-[20px] dark:bg-(--app-background-dark-mode)">
-              <div className="flex bg-(--green) h-1/10 w-full rounded-t-[20px] items-end justify-between">
-                <p className="m-3 text-lg text-(--white) font-bold">
-                  {language ? "Plan de hoy" : "Today's plan"}
-                </p>
-                <div className="m-2.5 bg-(--red) p-2 text-white font-bold rounded-xl text-xs">
-                  {language ? "Semanal" : "Weekly"}
-                </div>
-              </div>
-              <div className="flex flex-row w-full h-8/10">
-                <div className="flex flex-col w-2/10 gap-[16px] align-middle items-center mt-7 dark:text-(--light-grey)">
-                  <p>{language ? "9:00" : "9 AM"}</p>
-                  <p>{language ? "10:00" : "10 AM"}</p>
-                  <p>{language ? "11:00" : "11 AM"}</p>
-                  <p>{language ? "12:00" : "12 AM"}</p>
-                  <p>{language ? "13:00" : "1 PM"}</p>
-                  <p>{language ? "14:00" : "2 PM"}</p>
-                  <p>{language ? "15:00" : "3 PM"}</p>
-                  <p>{language ? "16:00" : "4 PM"}</p>
-                  <p>{language ? "17:00" : "5 PM"}</p>
-                  <p>{language ? "18:00" : "6 PM"}</p>
-                  <p>{language ? "19:00" : "7 PM"}</p>
-                  <p>{language ? "20:00" : "8 PM"}</p>
-                </div>
-                <div className="flex flex-col items-center bg-[repeating-linear-gradient(0deg,var(--grey)_0px,var(--grey)_2px,var(--white)_2px,var(--white)_40px)] h-full w-8/10 dark:bg-[repeating-linear-gradient(0deg,var(--grey)_0px,var(--grey)_2px,var(--app-background-dark-mode)_2px,var(--app-background-dark-mode)_40px)]">
-                  <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-2">
-                    <p className="text-(--red) font-bold text-md">
-                      {language ? "Tostadas de aguacate" : "Avocado toasts"}
-                    </p>
-                    <div className="flex flex-row gap-2 items-center">
-                      <p className="text-(--dark-green) text-sm">
-                        {language ? "Salubridad:" : "Healthiness:"}
-                      </p>
-                      <div className="flex flex-row justify-between gap-1">
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-30">
-                    <p className="text-(--red) font-bold text-md">
-                      {language ? "Pollo con patatas" : "Chicken with potatoes"}
-                    </p>
-                    <div className="flex flex-row gap-2 items-center">
-                      <p className="text-(--dark-green) text-sm">
-                        {language ? "Salubridad:" : "Healthiness:"}
-                      </p>
-                      <div className="flex flex-row justify-between gap-1">
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--grey) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--grey) rounded-4xl"></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col w-9/10 h-3/20 bg-(--light-grey) p-2 rounded-xl mt-30">
-                    <p className="text-(--red) font-bold text-md">
-                      {language ? "Tortitas de avena" : "Oatmeal pancakes"}
-                    </p>
-                    <div className="flex flex-row gap-2 items-center">
-                      <p className="text-(--dark-green) text-sm">
-                        {language ? "Salubridad:" : "Healthiness:"}
-                      </p>
-                      <div className="flex flex-row justify-between gap-1">
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--green) rounded-4xl"></p>
-                        <p className="mt-0.5 w-3 h-3 bg-(--grey) rounded-4xl"></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-row bg-(--red) h-1/10 w-full rounded-b-[20px] items-center justify-around text-2xl text-white dark:text-(--dark-green)">
-                <IoCalendar />
-                <IoCartOutline />
-                <IoHomeOutline />
-                <IoBookOutline />
-                <IoSettingsOutline />
-              </div>
-            </div>
+            <img
+              src={screenshot}
+              alt="Seveneat App Screenshot"
+              className="w-full h-full object-cover rounded-[20px]"
+            />
           </div>
         </div>
       </div>
