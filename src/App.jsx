@@ -1,7 +1,6 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import {useState, useEffect, Component} from "react";
 import logo from "./assets/logo.png";
-import screenshot from "./assets/screenshot.png";
 import {
   MdKeyboardVoice,
   MdDesignServices,
@@ -23,13 +22,14 @@ import { RiHealthBookFill } from "react-icons/ri";
 import { IoIosInfinite } from "react-icons/io";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { LuBrainCircuit, LuClipboardPlus } from "react-icons/lu";
-
+import { CalendarScreen, WeeklyListScreen, HomeScreen, FoodScreen, SettingsScreen} from "./demoScreens/DemoScreens.jsx"
 function App() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const [language, setLanguage] = useState(false);
   const [email, setEmail] = useState("");
   const [notification, setNotification] = useState(null);
+  const [demoScreen, setDemoScreen] = useState(3);
 
   useEffect(() => {
     // Check if the page was loaded with Spanish HTML
@@ -45,7 +45,17 @@ function App() {
         setLanguage(true);
       }
     }
-  }, []);
+  }, [])
+
+  const renderDemoScreen = () => {
+      switch (demoScreen) {
+          case 1: return <CalendarScreen></CalendarScreen>
+          case 2: return <WeeklyListScreen></WeeklyListScreen>
+          case 3: return <HomeScreen></HomeScreen>
+          case 4: return <FoodScreen></FoodScreen>
+          case 5: return <SettingsScreen></SettingsScreen>
+      }
+  }
 
   const showNotification = (message, type) => {
     setNotification({ message, type });
@@ -341,11 +351,15 @@ function App() {
         </div>
         <div className="flex items-center justify-center fadeInFromDown md:fadeInFromRight">
           <div className="bg-gray-800 w-80 h-160 rounded-[40px] m-4 p-[20px] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.4)]">
-            <img
-              src={screenshot}
-              alt="Seveneat App Screenshot"
-              className="w-full h-full object-cover rounded-[20px]"
-            />
+            {renderDemoScreen()}
+            <div className=" flex flex-row w-full h-[10%] rounded-b-[20px] items-center justify-around text-2xl text-white bg-(--red)">
+                    <IoCalendar onClick={() => setDemoScreen(1)}/>
+                    <IoCartOutline onClick={() => setDemoScreen(2)}/>
+                    <IoHomeOutline onClick={() => setDemoScreen(3)}/>
+                    <IoBookOutline onClick={() => setDemoScreen(4)}/>
+                    <IoSettingsOutline onClick={() => setDemoScreen(5)}/>
+            </div>
+
           </div>
         </div>
       </div>
