@@ -1,5 +1,5 @@
 import "./App.css";
-import {useState, useEffect, Component} from "react";
+import {useState, useEffect} from "react";
 import logo from "./assets/logo.png";
 import {
   MdKeyboardVoice,
