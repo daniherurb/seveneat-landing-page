@@ -71,8 +71,8 @@ function App() {
       if (response.status === 201 || (response.ok && data.success)) {
         showNotification(
           language
-            ? "¡Correo añadido exitosamente!"
-            : "Email added successfully!",
+            ? "¡Correo añadido!"
+            : "Email added!",
           "success",
         );
         setEmail("");
@@ -80,8 +80,8 @@ function App() {
         // Email already exists
         showNotification(
           language
-            ? "Este correo ya está en nuestra lista de espera"
-            : "This email is already on our waitlist",
+            ? "Este correo ya estaba registrado"
+            : "This email was already registered",
           "error",
         );
       } else if (response.status === 400) {
@@ -212,7 +212,7 @@ function App() {
           className={`text-2xl text-(--red) mt-1 mr-8 transform transition duration-400 ${open ? "-rotate-90" : ""} hover: cursor-pointer md:hidden`}
           onClick={toggleMenu}
           aria-label={
-            language ? "Abrir menú de navegación" : "Open navigation menu"
+            language ? "Abrir menú" : "Open menu"
           }
           aria-expanded={open}
           role="button"
@@ -315,16 +315,16 @@ function App() {
         <div className="flex flex-col w-fit gap-6 bg-gradient-to-r from-green-600 via-red-400 to-red-700 bg-clip-text">
           <div className="text-5xl md:text-6xl font-bold text-(--dark-green) text-center md:text-start h-fit w-fit dark:text-white">
             {language
-              ? "Deja de pensar qué cocinar."
-              : "Stop thinking about what to cook."}
+              ? "¿Es difícil saber qué vas a comer?"
+              : "Is it hard to know what to eat?"}
             <div className="text-transparent leading-none">
-              {language ? "Empieza a disfrutarlo." : "Start enjoying it."}
+              {language ? "Esta es la solucion." : "This is the answer."}
             </div>
           </div>
           <div className="text-lg md:text-xl text-gray-500 text-center md:text-start fadeInFromUp md:fadeInFromLeft dark:text-white">
             {language
-              ? "Ya sabes cocinar. Ya tienes tus comidas. Solo necesitas que alguien decida por ti. Nosotros lo hacemos. Tú solo cocinas lo que ya sabes hacer."
-              : "You already know how to cook. You already have your meals. You just need someone to decide for you. We do that. You just cook what you already know how to make."}
+              ? "Ya sabes lo que sueles comer, pero a veces es complicado elegir y recordar cada una de esas comidas. Seveneat te permite registrar tus comidas del día a día y genera planes adaptados a tí."
+              : "You know what you usually eat, but sometimes it is hard to chose or even remember some of those meals. Seveneat allows you to register your day to day meals and it generates plans adapted to you."}
           </div>
           <div className="flex flex-row gap-3 justify-center md:justify-start fadeInFromUp md:fadeInFromLeft">
             <a href={"#waitlist"}>
@@ -362,13 +362,13 @@ function App() {
           className="scroll-mt-40 mt-13 text-3xl font-bold md:text-4xl w-9/10 text-white"
         >
           {language
-            ? "Tres cosas que hace por ti"
-            : "Three things it does for you"}
+            ? "Pero, ¿por qué Seveneat y no una de las otras apps de planificación de comidas?"
+            : "But, why Seveneat and not one of the other meal planning apps?"}
         </div>
         <div className="mt-5 text-md md:text-lg w-9/10 text-white">
           {language
-            ? "Simple. Rápido. Sin complicaciones."
-            : "Simple. Fast. No complications."}
+            ? "Porque aquí mandas tú:"
+            : "Because you are the boss here:"}
         </div>
         <div className="grid md:grid-cols-2 h-fit gap-4 items-center mt-7 w-9/10 justify-between max-w-330">
           <div className="h-full w-full flex flex-col items-start border-1 bg-white min-w-40 p-5 rounded-2xl gap-4 dark:bg-(--background-dark-green) dark:border-(--background-dark-green)">
@@ -381,8 +381,8 @@ function App() {
             </div>
             <div className="text-(--grey) text-md text-start">
               {language
-                ? "Dile qué comiste hoy, sácale una foto al plato, o escríbelo rápido. Como prefieras. Así de simple."
-                : "Tell it what you ate today, snap a photo of your plate, or just type it quickly. However you prefer. That simple."}
+                ? "Si tuvieras que registrar las comidas una por una incluyendo todos sus ingredientes tardarías siglos. Aquí lo hacemos fácil:"
+                : "If you had to register all the meals one by one inluding every ingredient... It might take centuries. So we make it easy:"}
             </div>
             <div
               className={
@@ -393,19 +393,19 @@ function App() {
                 <MdKeyboardVoice
                   className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}
                 ></MdKeyboardVoice>
-                {language ? "Dilo en voz alta" : "Say it out loud"}
+                {language ? "Usa tu voz para describir el plato" : "Say the name or a description out loud"}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <IoCameraOutline
                   className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}
                 ></IoCameraOutline>
-                {language ? "Foto del plato" : "Snap a photo"}
+                {language ? "Saca una foto del plato" : "Snap a photo of the meal"}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <TbInputAi
                   className={"mt-0.5 min-w-5 min-h-5 text-(--red)"}
                 ></TbInputAi>
-                {language ? "Escríbelo" : "Type it out"}
+                {language ? "Escribe el nombre o una descripción del plato" : "Type the name or a description of the meal"}
               </div>
             </div>
           </div>
@@ -419,8 +419,8 @@ function App() {
             </div>
             <div className="text-(--grey) text-md text-start">
               {language
-                ? "Aprende qué te gusta comer y cuándo. Sabe qué comiste ayer. Balancea tu semana automáticamente. Cada semana mejora porque te conoce mejor."
-                : "Learns what you like to eat and when. Knows what you ate yesterday. Balances your week automatically. Gets better each week because it knows you better."}
+                ? "Aprende qué te gusta comer y cuándo. Cada cambio se registra en el algoritmo para mejorar la proxima planificación."
+                : "Learns what you like to eat and when. Each change is registered in the algorithm to improve the next planning."}
             </div>
             <div
               className={
@@ -432,24 +432,24 @@ function App() {
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Aprende tus preferencias de sabor"
-                  : "Learns your taste preferences"}
+                  ? "Si sueles quitar una comida, te la sugerirá menos."
+                  : "If you usually remove a meal, it will suggest it less."}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <FaCheck
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Considera tus objetivos de salud"
-                  : "Considers your health goals"}
+                  ? "Si una comida es saludable, te será recomendada a menudo."
+                  : "If a meal is healthy, it will be sugested more often."}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <FaCheck
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Equilibra la nutrición automáticamente"
-                  : "Balances nutrition automatically"}
+                  ? "Si tienes una nueva comida favorita, te saldrá más a menudo."
+                  : "If you have a new favourite meal, it will show more often."}
               </div>
             </div>
           </div>
@@ -458,13 +458,13 @@ function App() {
             <div className="bg-gray-100 w-full h-[2px] rounded-4xl" />
             <div className="text-(--dark-green) text-xl font-bold dark:text-white">
               {language
-                ? "Listas de Compra Automáticas"
-                : "Automatic Shopping Lists"}
+                ? "Lista de la Compra Automáticas"
+                : "Automatic Shopping List"}
             </div>
             <div className="text-(--grey) text-md text-start">
               {language
-                ? "Una vez que tu plan semanal esté listo, obtén una lista de compra completa con todos los ingredientes organizados por categoría para viajes eficientes al supermercado."
-                : "Once your weekly plan is ready, get a comprehensive shopping list with all ingredients organized by category for efficient grocery trips."}
+                ? "Una vez que tu plan semanal esté listo, obtendrás una lista de compra completa con todos los ingredientes necesarios para la semana. Nos guardamos lo que tienes en la despensa para que solo compres lo que necesites."
+                : "Once your weekly plan is ready, get a comprehensive shopping list with all ingredients needed for the week. We store everything you have in your pantry so that you only buy what you really need."}
             </div>
             <div
               className={
@@ -476,24 +476,24 @@ function App() {
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Consolidación de ingredientes"
-                  : "Ingredient consolidation"}
+                  ? "Registra los ingredientes que ya tienes con una foto."
+                  : "Register the ingredients you already have with a foto."}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <FaCheck
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Organización por categorías"
-                  : "Category organization"}
+                  ? "La lista de la compra solo tendrá lo que te falta para tu plan."
+                  : "The shopping list will only have what you need for your plan."}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <FaCheck
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Optimización de cantidades"
-                  : "Quantity optimization"}
+                  ? "Con una foto del ticket se tacharán los ingredientes de la lista."
+                  : "With a photo of the bill the inredients will be crossed out."}
               </div>
             </div>
           </div>
@@ -505,8 +505,8 @@ function App() {
             </div>
             <div className="text-(--grey) text-md text-start">
               {language
-                ? "Rastrea calorías e ingesta de proteínas sin esfuerzo. Califica tus comidas por sabor y salud, y nuestra IA optimizará las recomendaciones futuras."
-                : "Track calories and protein intake effortlessly. Rate your meals for taste and health, and our AI will optimize future recommendations."}
+                ? "Rastrea calorías e ingesta de proteínas sin esfuerzo. Califica tus comidas por sabor y salud, asi ajustaremos tus planes."
+                : "Track calories and protein intake effortlessly. Rate your meals for taste and healthiness, and we will adjust your plans on it"}
             </div>
             <div
               className={
@@ -518,24 +518,24 @@ function App() {
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Seguimiento diario de calorías"
-                  : "Daily calorie tracking"}
+                  ? "Seguimiento diario de calorías y proteínas."
+                  : "Daily calorie and proteine tracking"}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <FaCheck
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Monitoreo de ingesta de proteínas"
-                  : "Protein intake monitoring"}
+                  ? "Podrás establecer tus propios objetivos nutritivos."
+                  : "You will be able to stablish nutrition objectives."}
               </div>
               <div className="flex flex-row items-start gap-2 text-gray-600 dark:text-white">
                 <FaCheck
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Puntuación de salud personalizada"
-                  : "Personalized health scoring"}
+                  ? "Tendrás estadísticas diarias y mensuales."
+                  : "You will have montly and daily statistics."}
               </div>
             </div>
           </div>
@@ -563,8 +563,8 @@ function App() {
             </div>
             <div className="mt-5 text-md md:text-lg w-9/10 text-white text-center">
               {language
-                ? "Usa la IA sin límites. Mejores planes. Todo lo que saquemos nuevo."
-                : "Use AI without limits. Better plans. Everything new we release."}
+                ? "Si los limites de la versión gratuita se te quedan cortos o si quieres más opciones:"
+                : "If the free limits are too short for you or if you want more features:"}
             </div>
             <div
               className={
@@ -596,7 +596,7 @@ function App() {
                     "text-md md:text-lg text-center text-white drop-shadow-xl"
                   }
                 >
-                  {language ? "Planificación avanzada" : "Advanced planning"}
+                  {language ? "Más opciones para planes" : "More planning options"}
                 </div>
               </div>
               <div className={"flex flex-col h-full items-center gap-2"}>
@@ -625,7 +625,7 @@ function App() {
                   }
                 >
                   {language
-                    ? "Acceso temprano a nuevas funciones"
+                    ? "Acceso anticipado a nuevas funciones"
                     : "Early access to new features"}
                 </div>
               </div>
@@ -655,8 +655,8 @@ function App() {
               className={"mt-1 text-5xl text-(--red)"}
             ></MdDesignServices>
             {language
-              ? "Y muchas mas funciones estan aún por llegar..."
-              : "And even more new features are yet to come..."}
+              ? "Y estamos trabajando en muchas más funciones..."
+              : "And we are working and many new functions..."}
           </div>
           <div className="mt-5 text-md md:text-lg w-9/10 text-white">
             {language
@@ -667,20 +667,20 @@ function App() {
             <div className="flex flex-row w-fit gap-2 text-white items-center">
               <FaClipboardCheck className="text-xl text-(--red)" />
               {language
-                ? "Recomendaciones de recetas"
-                : "Recipe recommendations"}
+                ? "Importar comidas de recetas de tus redes sociales"
+                : "Import meals from social media recipees"}
             </div>
             <div className="flex flex-row w-fit gap-2 text-white items-center">
               <FaClipboardCheck className="text-xl text-(--red)" />
               {language
-                ? "Programación de preparación de comidas"
-                : "Meal prep scheduling"}
+                ? "Interfaz de chat para que puedas hablar con tu plan"
+                : "Chat interface to talk with your plan"}
             </div>
             <div className="flex flex-row w-fit gap-2 text-white items-center">
               <FaClipboardCheck className="text-xl text-(--red)" />
               {language
-                ? "Compartir comidas socialmente"
-                : "Social meal sharing"}
+                ? "Compartir comidas y estadísticas con tus amigos y familia"
+                : "Share meals and stats with your friends and family"}
             </div>
           </div>
         </div>
@@ -690,12 +690,12 @@ function App() {
         className="flex flex-col h-fit items-center text-center pb-14"
       >
         <div className="mt-13 text-3xl font-bold md:text-4xl w-9/10 text-(--dark-green) dark:text-white">
-          {language ? "Tres pasos. Eso es todo." : "Three steps. That's it."}
+          {language ? "¿Cómo funciona?" : "¿How does it work?"}
         </div>
         <div className="mt-5 text-md md:text-lg w-9/10 text-(--dark-green) dark:text-white">
           {language
-            ? "Nada complicado. Nada técnico. Solo sentido común."
-            : "Nothing complicated. Nothing technical. Just common sense."}
+            ? "Con estos tres simples pasos generar planes será un paseo."
+            : "With this simple three steps you will generate plans with ease"}
         </div>
         <div className="grid md:grid-cols-3 w-9/10 mt-10 gap-15 md:gap-3">
           <div className={"flex flex-col items-center gap-5 h-auto"}>
@@ -712,8 +712,8 @@ function App() {
               }
             >
               {language
-                ? "Añade tus Comidas Favoritas"
-                : "Add Your Favorite Meals"}
+                ? "Añade tus Comidas Habituales"
+                : "Add Your Usual Meals"}
             </div>
             <div
               className={
@@ -721,8 +721,8 @@ function App() {
               }
             >
               {language
-                ? "Comienza añadiendo tus comidas favoritas usando voz, fotos o texto. Mientras más añadas, mejor entenderá nuestra IA tus preferencias."
-                : "Start by adding your go-to meals using voice, photos, or text. The more you add, the better our AI understands your preferences."}
+                ? "Comienza registrando tus comidas haciendole una foto o escribiendo su nombre. Cuantas más añadas, mejores los planes."
+                : "Start by adding your meals taking a photo or writing the name. The more you add, the beter the plans you will get."}
             </div>
           </div>
           <div className={"flex flex-col items-center gap-5 h-auto"}>
@@ -738,7 +738,7 @@ function App() {
                 "text-(--dark-green) text-center text-2xl font-bold dark:text-white"
               }
             >
-              {language ? "Califica y Personaliza" : "Rate & Customize"}
+              {language ? "Personaliza tus preferencias" : "Customize your preferences"}
             </div>
             <div
               className={
@@ -746,8 +746,8 @@ function App() {
               }
             >
               {language
-                ? "Califica las comidas por sabor y saludabilidad. Establece tus objetivos de salud para que la IA aprenda qué comidas priorizar en tus planes."
-                : "Rate meals for taste and healthiness. Set your health goals so AI learns which meals to prioritize in your plans."}
+                ? "Elige que valoras a la hora de generar un plan: Variedad, Gustos o Saludable. Ajusta tus horarios de comida."
+                : "Chose what you value when generating a plan: Variety, Preferences or Healthiness. Adjust your meal schedules."}
             </div>
           </div>
           <div className={"flex flex-col items-center gap-5 h-auto"}>
@@ -763,7 +763,7 @@ function App() {
                 "text-(--dark-green) text-center text-2xl font-bold dark:text-white"
               }
             >
-              {language ? "Obtén tu plan semanal" : "Get Your Weekly Plan"}
+              {language ? "Genera tu Plan Semanal" : "Generate your Weekly Plan"}
             </div>
             <div
               className={
@@ -771,15 +771,15 @@ function App() {
               }
             >
               {language
-                ? "Recibe un calendario semanal de comidas perfectamente equilibrado con listas de compra automáticas. Modifica según necesites y disfruta de una planificación de comidas sin estrés."
-                : "Receive a perfectly balanced weekly meal calendar with automatic shopping lists. Modify as needed and enjoy stress-free meal planning."}
+                ? "Tus comidas planificadas en el desayuno, comida, merienda y cena. Modifícalo según necesites y aprovecha la lista de la compra automática."
+                : "Your meals planned for breakfast, lunch, snack and dinner. Modify it for your needs, and take advantage of the automatic shopping list."}
             </div>
           </div>
         </div>
       </div>
       <div className="flex flex-col h-fit items-center text-center pt-15 pb-15 p-5">
         <div className="text-3xl md:text-4xl font-bold text-(--dark-green) w-9/10 max-w-7xl dark:text-white mb-8">
-          {language ? "¿Esto es para ti?" : "Is this for you?"}
+          {language ? "¿Seveneat es para tí?" : "Is Seveneat for you?"}
         </div>
         <div className="grid md:grid-cols-3 w-9/10 max-w-7xl gap-8 mt-8">
           <div className="flex flex-col items-center text-center gap-4 p-6 bg-white dark:bg-(--background-dark-green) rounded-2xl shadow-lg">
