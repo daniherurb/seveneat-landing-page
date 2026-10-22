@@ -448,8 +448,8 @@ function App() {
                   className={"mt-1.5 min-w-4 min-h-4 text-(--red)"}
                 ></FaCheck>
                 {language
-                  ? "Si tienes una nueva comida favorita, te saldrá más a menudo."
-                  : "If you have a new favourite meal, it will show more often."}
+                  ? "Si tienes una nueva comida favorita, no faltará en tu plan."
+                  : "If you have a new favourite meal, you will not miss it in your plan."}
               </div>
             </div>
           </div>
@@ -789,30 +789,30 @@ function App() {
             </div>
             <div className="text-(--grey) text-md">
               {language
-                ? "Tienes tus 15-20 comidas de siempre. Las haces con los ojos cerrados. Solo te falta saber cuándo hacer cada una. Eso lo hacemos nosotros."
-                : "You have your usual 15-20 meals. You can make them with your eyes closed. You just need to know when to make each one. We handle that."}
+                ? "Ya tienes una lista de comidas que sueles hacer, pero te es dificil recordarlas y elegir entre todas ellas. Déjaselo a Seveneat."
+                : "You already have a list of meals you usually make, but it is hard to remember them or to chose between them. Leave it to Seveneat."}
             </div>
           </div>
           <div className="flex flex-col items-center text-center gap-4 p-6 bg-white dark:bg-(--background-dark-green) rounded-2xl shadow-lg">
             <IoHomeOutline className="text-(--red) text-5xl" />
             <div className="text-(--dark-green) text-xl font-bold dark:text-white">
-              {language ? "Tienes familia" : "You have a family"}
+              {language ? "Cocinas para varias personas" : "You cook for multiple people."}
             </div>
             <div className="text-(--grey) text-md">
               {language
-                ? "A tu hijo no le gustan los pimientos. Tu pareja es intolerante a la lactosa. Tú odias el pescado. Sabemos. Y planificamos para todos."
-                : "Your kid hates peppers. Your partner is lactose intolerant. You can't stand fish. We know. And we plan for everyone."}
+                ? "A tu hijo no le gustan los pimientos. Tu pareja es intolerante a la lactosa. Tú odias el pescado. Eso queda registrado y aplicado cada semana. Tus planes, tus reglas."
+                : "Your kid hates peppers. Your partner is lactose intolerant. You can't stand fish. Everything is registered and applied each week. Your plans, your rules."}
             </div>
           </div>
           <div className="flex flex-col items-center text-center gap-4 p-6 bg-white dark:bg-(--background-dark-green) rounded-2xl shadow-lg">
             <IoCalendar className="text-(--red) text-5xl" />
             <div className="text-(--dark-green) text-xl font-bold dark:text-white">
-              {language ? "Odias decidir" : "You hate deciding"}
+              {language ? "Odias elegir" : "You hate choosing"}
             </div>
             <div className="text-(--grey) text-md">
               {language
-                ? 'Son las 6pm. Llegas cansado. "¿Qué hacemos de comer?" Ya no tienes que pensarlo. Nosotros ya decidimos. Solo cocina y disfruta.'
-                : "It's 6pm. You're tired. \"What's for dinner?\" You don't have to think about it anymore. We already decided. Just cook and enjoy."}
+                ? 'Son las 9pm. Llegas cansado. "¿Qué hacemos de comer?" Ya no tienes que pensarlo. Solo cocina y disfruta.'
+                : "It's 6pm. You're tired. \"What's for dinner?\" You don't have to think about it anymore. Just cook and enjoy."}
             </div>
           </div>
         </div>
@@ -850,8 +850,8 @@ function App() {
             </div>
             <div className="text-(--grey)">
               {language
-                ? "Sí. Habrá versión gratis para empezar. Seveneat Plus son $3.99/mes y te da IA ilimitada, mejores planes, y acceso a todo lo nuevo que saquemos."
-                : "Yes. There'll be a free version to start. Seveneat Plus is $3.99/mo and gives you unlimited AI, better plans, and access to everything new we release."}
+                ? "Sí. Habrá versión gratis. Seveneat Plus son $3.99/mes y te da IA ilimitada, mejores planes, y acceso a todo lo nuevo que saquemos."
+                : "Yes. There'll be a free version. Seveneat Plus is $3.99/mo and gives you unlimited AI, better plans, and access to everything new we release."}
             </div>
           </div>
           <div className="text-left bg-white dark:bg-(--background-dark-green) p-6 rounded-2xl">
@@ -862,8 +862,8 @@ function App() {
             </div>
             <div className="text-(--grey)">
               {language
-                ? "Pronto. Estamos en beta ahora. Si te unes a la lista, eres de los primeros en probarlo. Te avisamos por email cuando esté listo."
-                : "Soon. We're in beta now. If you join the list, you're among the first to try it. We'll email you when it's ready."}
+                ? "Pronto. Estamos en beta ahora. Si te unes a la lista, serás de los primeros en probarla. Te avisamos por email cuando esté lista."
+                : "Soon. We're in beta now. If you join the list, you'll be among the first to try it. We'll email you when it's ready."}
             </div>
           </div>
         </div>
@@ -879,7 +879,7 @@ function App() {
         </div>
         <div className="mt-5 text-md md:text-lg w-9/10 text-white">
           {language
-            ? "Deja tu email. Serás de los primeros en probarlo."
+            ? "Deja tu email. Serás de los primeros en probarla."
             : "Leave your email. You'll be among the first to try it."}
         </div>
         <div className={"flex flex-col md:flex-row gap-5 items-center mt-12"}>
@@ -974,8 +974,8 @@ function App() {
         >
           <div>
             {language
-              ? "© 2025 Seveneat. Todos los derechos reservados."
-              : "© 2025 Seveneat. All rights reserved."}
+              ? "© 2026 Seveneat. Todos los derechos reservados."
+              : "© 2026 Seveneat. All rights reserved."}
           </div>
           <div className="text-sm">
             {language ? "Landing page creada por " : "Landing page created by "}
