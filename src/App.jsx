@@ -209,7 +209,7 @@ function App() {
           <p className="text-2xl font-bold text-(--red)">Seveneat</p>
         </a>
         <GiHamburgerMenu
-          className={`text-2xl text-(--red) mt-1 mr-8 transform transition duration-400 ${open ? "-rotate-90" : ""} hover: cursor-pointer md:hidden`}
+          className={`text-2xl text-(--red) mt-1 mr-8 transform transition duration-400 select-none ${open ? "-rotate-90" : ""} hover: cursor-pointer md:hidden`}
           onClick={toggleMenu}
           aria-label={
             language ? "Abrir menú" : "Open menu"
@@ -318,7 +318,7 @@ function App() {
               ? "¿Es difícil saber qué vas a comer?"
               : "Is it hard to know what to eat?"}
             <div className="text-transparent leading-none">
-              {language ? "Esta es la solucion." : "This is the answer."}
+              {language ? "Esta es la solución." : "This is the answer."}
             </div>
           </div>
           <div className="text-lg md:text-xl text-gray-500 text-center md:text-start fadeInFromUp md:fadeInFromLeft dark:text-white">
