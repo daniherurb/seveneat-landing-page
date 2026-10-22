@@ -874,8 +874,8 @@ function App() {
           className="scroll-mt-40 text-3xl font-bold md:text-4xl w-9/10 text-white"
         >
           {language
-            ? "Avísame cuando esté listo"
-            : "Let me know when it's ready"}
+            ? "Avísame cuando se publique"
+            : "Let me know when it is published"}
         </div>
         <div className="mt-5 text-md md:text-lg w-9/10 text-white">
           {language
